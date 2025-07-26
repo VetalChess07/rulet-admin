@@ -1,0 +1,29 @@
+/* App.css */
+@font-face {
+  font-family: 'Inter-Regular';
+  src: url('../../shared/assets/fonts/Inter-Bold.woff2')
+    format('truetype');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter-SemiBold';
+  src: url('../../shared/assets/fonts/Inter-Light.woff2')
+    format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FiraCode';
+  src: url('../../shared/assets/fonts/Inter-Medium.woff2') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'FiraCode';
+  src: url('../../shared/assets/fonts/Inter-Regular.woff2') format('truetype');
+  font-weight: 600;
+  font-display: swap;
+}
