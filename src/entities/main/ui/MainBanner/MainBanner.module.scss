@@ -27,8 +27,10 @@
     position: absolute;
     right: 0;
     top: 0;
-
     background-size: cover;
     background-repeat: no-repeat;
+    @media (max-width: 980px) {
+      background-position: center;
+    }
   }
 }

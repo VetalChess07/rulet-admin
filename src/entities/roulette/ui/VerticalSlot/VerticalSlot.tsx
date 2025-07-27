@@ -99,17 +99,13 @@ export const VerticalSlot: React.FC<Props> = ({ slots }) => {
             <div
               className={cls.light}
               style={{
-                boxShadow: spinning
-                  ? `background: linear-gradient(
-                        180deg,
-                        rgba(220, 224, 237, 0) 0%,
-                        rgba(220, 224, 237, 0.02) 100%
-                      );`
-                  : `background: linear-gradient(
-                        180deg,
-                        rgba(220, 224, 237, 0) 0%,
-                        rgba(220, 224, 237, 0.02) 100%
-                      );`,
+                background: spinning
+                  ? `linear-gradient(
+          180deg,
+          rgba(220, 224, 237, 0) 0%,
+          rgba(220, 224, 237, 0.02) 100%
+        )`
+                  : 'none', // по дефолту нет фона
               }}
             ></div>
           </div>
@@ -121,7 +117,18 @@ export const VerticalSlot: React.FC<Props> = ({ slots }) => {
               borderBottom: spinning ? '1px solid var(--accent-color)' : 'none',
             }}
           >
-            <div className={cls.light}></div>
+            <div
+              className={cls.light}
+              style={{
+                background: spinning
+                  ? `linear-gradient(
+          180deg,
+          rgba(220, 224, 237, 0) 0%,
+          rgba(220, 224, 237, 0.02) 100%
+        )`
+                  : 'none', // по дефолту нет фона
+              }}
+            ></div>
           </div>
           <div
             className={cls.glowInnerItem}
@@ -131,7 +138,18 @@ export const VerticalSlot: React.FC<Props> = ({ slots }) => {
               borderBottom: spinning ? '1px solid var(--accent-color)' : 'none',
             }}
           >
-            <div className={cls.light}></div>
+            <div
+              className={cls.light}
+              style={{
+                background: spinning
+                  ? `linear-gradient(
+          180deg,
+          rgba(220, 224, 237, 0) 0%,
+          rgba(220, 224, 237, 0.02) 100%
+        )`
+                  : 'none', // по дефолту нет фона
+              }}
+            ></div>
           </div>
         </div>
       </div>

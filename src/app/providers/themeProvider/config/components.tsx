@@ -20,6 +20,7 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
         outline: 'none',
         transition: 'all .5s',
         marginTop: '0',
+        boxShadow: `0px 12px 36px rgba(51, 84, 134, 0.4)`,
         '&:active': {
           transform: 'scale(1.1)',
         },

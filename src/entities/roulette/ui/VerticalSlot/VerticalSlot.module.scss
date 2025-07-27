@@ -31,11 +31,7 @@
       .light {
         width: 100%;
         max-width: 186px;
-        // background: linear-gradient(
-        //   180deg,
-        //   rgba(220, 224, 237, 0) 0%,
-        //   rgba(220, 224, 237, 0.02) 100%
-        // );
+
         @media (max-width: 780px) {
           border-radius: 23px;
         }
