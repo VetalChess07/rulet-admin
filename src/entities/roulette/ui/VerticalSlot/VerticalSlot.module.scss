@@ -1,9 +1,79 @@
 .VerticalSlotMachine {
-  width: 180px; // по ширине 3 фрукта * 60px
-  border: 2px solid #0077ff;
+  width: 100%;
   border-radius: 8px;
-  background: #222;
-  color: white;
   user-select: none;
   font-weight: 700;
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  .glowInner {
+    height: 219px;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    z-index: -1;
+
+    border-radius: 24px;
+
+    .glowInnerItem {
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+      background: var(--secondary-bg);
+      transition: all 0.5s;
+
+      border-radius: 24px;
+      .light {
+        width: 100%;
+        max-width: 186px;
+        // background: linear-gradient(
+        //   180deg,
+        //   rgba(220, 224, 237, 0) 0%,
+        //   rgba(220, 224, 237, 0.02) 100%
+        // );
+        @media (max-width: 780px) {
+          border-radius: 23px;
+        }
+      }
+    }
+  }
+}
+
+.columnsWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  min-height: 219px;
+  max-height: 219px;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.column {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  gap: 3px;
+}
+
+.slotItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 73px;
+  img {
+    max-height: 73px;
+    max-width: 100%;
+    object-fit: contain;
+    pointer-events: none;
+    user-select: none;
+  }
 }

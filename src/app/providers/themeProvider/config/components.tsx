@@ -1,4 +1,4 @@
-import { Components, Theme } from '@mui/material';
+import { backdropClasses, colors, Components, Theme } from '@mui/material';
 
 export const componentsConfig: Components<Omit<Theme, 'components'>> = {
   MuiButton: {
@@ -37,7 +37,8 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
           border: 'none',
         },
         '&.Mui-disabled': {
-          opacity: '.3',
+          background: '#3D414E4D',
+          color: '#696E80',
         },
       },
     },

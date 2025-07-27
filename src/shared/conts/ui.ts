@@ -9,3 +9,8 @@ export const THEME_COLOR_HEX: Record<ThemeColor, string> = {
 };
 
 export const themeColors = ['#1E3573', '#7D0D08', '#0E5208'];
+
+export const BOX_SHADOW = `
+  0px 55px 65px -22px var(--accent-color),
+  0px -55px 65px -22px var(--accent-color)
+`;

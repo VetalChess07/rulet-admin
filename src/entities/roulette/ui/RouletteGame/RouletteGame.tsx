@@ -1,32 +1,26 @@
 import React, { useState } from 'react';
-import { VerticalSlotMachine, SlotData } from '../VerticalSlot/VerticalSlot';
+import { VerticalSlot } from '../VerticalSlot/VerticalSlot';
+import img1 from '@shared/assets/images/item.png';
+import img2 from '@shared/assets/images/kristall.png';
 
-// весь большой массив с 100+ элементами
+import cls from './RouletteGame.module.scss';
+
+type SlotData = [string, string, string, 'win' | 'lose'];
+
 const allSlots: SlotData[] = [
-  ['🍉', '🍌', '🍎', 'lose'],
-  ['🍊', '🍌', '🍒', 'lose'],
-  ['🍊', '🍌', '🍒', 'lose'],
-  ['🍉', '🍌', '🍎', 'lose'],
-  ['🍇', '🍇', '🍉', 'lose'],
-  ['🍇', '🍇', '🍇', 'lose'],
-  ['🍍', '🍌', '🍌', 'lose'],
-  ['🍓', '🍊', '🍓', 'lose'],
-  ['🍌', '🍌', '🍌', 'win'],
-  ['🍏', '🍋', '🍋', 'lose'],
-
-  // ...можно хоть 100 штук
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img1, img1, img1, 'lose'],
+  [img2, img2, img2, 'win'],
+  [img1, img1, img1, 'lose'],
 ];
 
-function getRandomSlots(source: SlotData[], count: number = 3): SlotData[] {
-  const shuffled = [...source].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count);
-}
-
 function RouletteGame() {
-  return (
-    <div style={{ padding: 40, background: '#000', minHeight: '100vh' }}>
-      <VerticalSlotMachine slots={allSlots} />
-    </div>
-  );
+  return <VerticalSlot slots={allSlots} />;
 }
 export { RouletteGame };

@@ -1,24 +1,24 @@
 import React, { useState } from 'react';
 import cls from './VerticalSlot.module.scss';
+import { SlotData } from '../../model/types/roulette';
+import { RouletteFooter } from '../RouletteFooter/RouletteFooter';
+import { BOX_SHADOW } from '@/shared/conts/ui';
 
-export type SlotData = [string, string, string, 'win' | 'lose'];
-
-const SLOT_HEIGHT = 60;
+const SLOT_HEIGHT = 73;
 const VISIBLE_SLOTS = 3;
-const SPIN_ROUNDS = 10;
+const SPIN_ROUNDS = 3;
 
 interface Props {
   slots: SlotData[];
 }
 
-export const VerticalSlotMachine: React.FC<Props> = ({ slots }) => {
+export const VerticalSlot: React.FC<Props> = ({ slots }) => {
   const [spinning, setSpinning] = useState(false);
   const [offset, setOffset] = useState(0);
   const [transition, setTransition] = useState('');
 
   const centerIndex = Math.floor(VISIBLE_SLOTS / 2);
 
-  // Находим последний "win" индекс или последний элемент, если нет выигрышей
   const winIndexes = slots
     .map((slot, i) => (slot[3] === 'win' ? i : -1))
     .filter((i) => i !== -1);
@@ -36,9 +36,8 @@ export const VerticalSlotMachine: React.FC<Props> = ({ slots }) => {
     setOffset(0);
 
     setTimeout(() => {
-      setTransition(`transform 3s ease-out`);
+      setTransition('transform 3s ease-out');
 
-      // Рассчитываем финальный индекс и смещение
       const finalIndex = (SPIN_ROUNDS - 1) * slots.length + lastWinIndex;
       const finalOffset = finalIndex * SLOT_HEIGHT - centerIndex * SLOT_HEIGHT;
 
@@ -50,43 +49,94 @@ export const VerticalSlotMachine: React.FC<Props> = ({ slots }) => {
     }, 3100);
   };
 
-  return (
-    <>
-      <div
-        className={cls.VerticalSlotMachine}
-        style={{ overflow: 'hidden', height: SLOT_HEIGHT * VISIBLE_SLOTS }}
-      >
+  const repeatedSlots = Array.from({ length: SPIN_ROUNDS }).flatMap(
+    () => slots,
+  );
+
+  const renderColumn = (columnIndex: 0 | 1 | 2) => (
+    <div
+      className={cls.column}
+      style={{
+        transform: `translateY(-${offset}px)`,
+        transition,
+      }}
+    >
+      {repeatedSlots.map((slot, idx) => (
         <div
+          key={`${idx}-${columnIndex}`}
+          className={cls.slotItem}
           style={{
-            display: 'flex',
-            flexDirection: 'column',
-            transform: `translateY(-${offset}px)`,
-            transition,
+            height: SLOT_HEIGHT,
+            lineHeight: SLOT_HEIGHT + 'px',
           }}
         >
-          {Array.from({ length: SPIN_ROUNDS }).flatMap(() =>
-            slots.map((slot, idx) => (
-              <div
-                key={idx + Math.random()}
-                style={{
-                  height: SLOT_HEIGHT,
-                  lineHeight: SLOT_HEIGHT + 'px',
-                  textAlign: 'center',
-                  fontSize: 40,
-                  color: slot[3] === 'win' ? 'green' : 'black',
-                  fontWeight: slot[3] === 'win' ? 'bold' : 'normal',
-                }}
-              >
-                {slot[0]} {slot[1]} {slot[2]}
-              </div>
-            )),
-          )}
+          <img src={slot[columnIndex]} alt={`slot-${columnIndex}`} />
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div>
+      <div
+        className={cls.VerticalSlotMachine}
+        style={{ height: SLOT_HEIGHT * VISIBLE_SLOTS * 1.1 }}
+      >
+        <div className={cls.columnsWrapper}>
+          {renderColumn(0)}
+          {renderColumn(1)}
+          {renderColumn(2)}
+        </div>
+        <div className={cls.glowInner}>
+          <div
+            className={cls.glowInnerItem}
+            style={{
+              boxShadow: spinning ? BOX_SHADOW : 'none',
+              borderTop: spinning ? '1px solid var(--accent-color)' : 'none',
+              borderBottom: spinning ? '1px solid var(--accent-color)' : 'none',
+            }}
+          >
+            <div
+              className={cls.light}
+              style={{
+                boxShadow: spinning
+                  ? `background: linear-gradient(
+                        180deg,
+                        rgba(220, 224, 237, 0) 0%,
+                        rgba(220, 224, 237, 0.02) 100%
+                      );`
+                  : `background: linear-gradient(
+                        180deg,
+                        rgba(220, 224, 237, 0) 0%,
+                        rgba(220, 224, 237, 0.02) 100%
+                      );`,
+              }}
+            ></div>
+          </div>
+          <div
+            className={cls.glowInnerItem}
+            style={{
+              boxShadow: spinning ? BOX_SHADOW : 'none',
+              borderTop: spinning ? '1px solid var(--accent-color)' : 'none',
+              borderBottom: spinning ? '1px solid var(--accent-color)' : 'none',
+            }}
+          >
+            <div className={cls.light}></div>
+          </div>
+          <div
+            className={cls.glowInnerItem}
+            style={{
+              boxShadow: spinning ? BOX_SHADOW : 'none',
+              borderTop: spinning ? '1px solid var(--accent-color)' : 'none',
+              borderBottom: spinning ? '1px solid var(--accent-color)' : 'none',
+            }}
+          >
+            <div className={cls.light}></div>
+          </div>
         </div>
       </div>
 
-      <button onClick={startSpin} disabled={spinning} style={{ marginTop: 20 }}>
-        {spinning ? 'Крутим...' : 'Крутить'}
-      </button>
-    </>
+      <RouletteFooter onClick={startSpin} disabled={spinning} />
+    </div>
   );
 };
