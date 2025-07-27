@@ -1,16 +1,15 @@
-import { Logout } from '@mui/icons-material';
-
-
+import { LoginButton } from '../LoginButton/LoginButton';
 import { Logo } from '../Logo/Logo';
+import { LogoGame } from '../LogoGame/LogoGame';
+
+import cls from './Header.module.scss';
 
 export const Header = () => (
-  <header className="w-full bg-primaryColor fixed left-0 top-0 p-2 flex items-center justify-center z-[1000] ">
-    <div className="w-full max-w-[1632px] flex gap-4 justify-between md:items-start  flex-col md:items-center  md:flex-row ">
+  <header className={cls.Header}>
+    <div className={cls.inner}>
       <Logo />
-      <div className="flex gap-3 items-center ">
-
-        <Logout />
-      </div>
+      <LogoGame className={cls.logoGame} />
+      <LoginButton />
     </div>
   </header>
 );

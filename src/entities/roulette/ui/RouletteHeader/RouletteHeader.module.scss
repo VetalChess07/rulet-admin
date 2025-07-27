@@ -1,0 +1,23 @@
+@import '../../../../app/styles/mixin.scss';
+
+.RouletteHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .item {
+    display: flex;
+    gap: 13px;
+    align-items: center;
+    .title {
+      .titleAccent {
+        @include primary-gradient;
+      }
+    }
+  }
+  .courtTicket {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+}

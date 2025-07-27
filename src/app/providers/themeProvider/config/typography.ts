@@ -5,31 +5,29 @@ export const typographyConfig:
   | TypographyOptions
   | ((palette: Palette) => TypographyOptions)
   | undefined = {
-  fontFamily: ['Inter-Regular', 'Inter-SemiBold'].join(','),
+  fontFamily: ['Inter-Regular', 'Inter-Bold'].join(','),
 
   h1: {
     fontSize: '2rem',
-    fontWeight: 900,
-    lineHeight: '100%',
-    fontFamily: 'Inter-SemiBold',
-    '@media (max-width:600px)': {
-      fontSize: '1.75rem',
-      lineHeight: '2.5rem',
-    },
+    fontWeight: 700,
+    lineHeight: '130%',
+    fontFamily: 'Inter-Bold',
+    '@media (max-width:600px)': {},
   },
   h2: {
-    fontSize: '1.5rem',
-    fontWeight: 600,
-    lineHeight: '100%',
-    letterSpacing: 0,
-    color: 'var(--primary-color)',
-    fontFamily: 'Inter-SemiBold',
+    fontSize: '2rem',
+    fontWeight: 700,
+    lineHeight: '130%',
+    fontFamily: 'Inter-Bold',
+    '@media (max-width:600px)': {
+      fontSize: '1.5rem',
+    },
   },
 
   h3: {
     fontSize: '1.125rem',
     fontWeight: 600,
-    fontFamily: 'Inter-SemiBold',
+    fontFamily: 'Inter-Bold',
     lineHeight: '100%',
     color: 'var(--primary-color)',
   },
@@ -45,16 +43,16 @@ export const typographyConfig:
     lineHeight: '1.8125rem',
   },
   body1: {
-    fontSize: '1rem',
+    fontSize: '0.875rem',
     fontWeight: 400,
     lineHeight: '100%',
-    color: 'var(--primary-color)',
+    color: 'var(--light)',
   },
   body2: {
     fontSize: '.75rem',
     fontWeight: 400,
-    lineHeight: '1.20rem',
-    color: 'var(--primary-color)',
+    lineHeight: '1.25rem',
+    color: 'var(--primary-text-color)',
   },
   // caption: {
   //     color:"red",

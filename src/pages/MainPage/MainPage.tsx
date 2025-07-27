@@ -1,10 +1,13 @@
+import { MainBanner } from '@/entities/main';
+import { Roulette } from '@/entities/roulette';
 
 const Main = () => {
-    return (
-        <div>
-            [eq]
-        </div>
-    );
+  return (
+    <>
+      <MainBanner />
+      <Roulette />
+    </>
+  );
 };
 
 export default Main;

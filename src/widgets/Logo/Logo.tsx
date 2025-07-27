@@ -1,13 +1,7 @@
+import logo from '@shared/assets/icons/logo.svg';
 
-import logo from '@shared/assets/images/logo.png';
+import cls from './Logo.module.scss';
 
 export const Logo = () => {
-
-  return (
-    
-      <img src={logo}
-alt="logo"
-className="w-[200px] rounded-lg" />
-   
-  );
+  return <img src={logo} alt="donatov.net" className={cls.Logo} />;
 };

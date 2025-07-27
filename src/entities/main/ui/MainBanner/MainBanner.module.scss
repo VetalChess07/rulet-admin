@@ -1,0 +1,34 @@
+@import '../../../../app/styles/mixin.scss';
+
+.MainBanner {
+  margin-top: 36px;
+  background-color: var(--banner-bg-bg);
+  padding: 38px 40px;
+  border-radius: 16px;
+  z-index: 10;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  .item {
+    z-index: 10;
+    position: relative;
+    .title {
+      .titleAccent {
+        @include primary-gradient;
+      }
+    }
+    .desc {
+      margin-top: 12px;
+    }
+  }
+  .mainBannerImg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}

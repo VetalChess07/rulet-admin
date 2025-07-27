@@ -5,6 +5,8 @@ import ThemeProvider from './app/providers/themeProvider/ui/ThemeProvider';
 
 import { ErrorBoundary } from './app/providers/ErrorBoundary';
 
+import "@app/styles/index.scss";
+
 function App() {
   return (
   

@@ -1,0 +1,25 @@
+.Header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding-top: var(--padding-lg);
+  padding-bottom: var(--padding-lg);
+  padding-right: var(--padding-sm);
+  padding-left: var(--padding-sm);
+  background-color: var(--secondary-bg);
+  .inner {
+    width: 100%;
+    max-width: var(--container-width);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logoGame {
+      @media (max-width: 780px) {
+        display: none;
+      }
+    }
+  }
+}

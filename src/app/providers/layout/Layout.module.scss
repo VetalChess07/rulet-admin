@@ -1,5 +1,17 @@
-.layout {
+.main {
   display: flex;
   flex-direction: column;
-  // min-height: 100vh;
+  width: 100%;
+
+  padding-right: var(--padding-sm);
+  padding-left: var(--padding-sm);
+}
+
+:global(.MuiContainer-root) {
+  &.container {
+    width: 100%;
+    max-width: var(--container-width);
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
