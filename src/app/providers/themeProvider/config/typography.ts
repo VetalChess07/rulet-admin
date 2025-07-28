@@ -39,8 +39,9 @@ export const typographyConfig:
   },
   subtitle2: {
     fontSize: '1.25rem',
-    fontWeight: 400,
+    fontWeight: 700,
     lineHeight: '1.8125rem',
+    fontFamily: 'Inter-Bold',
   },
   body1: {
     fontSize: '0.875rem',

@@ -22,12 +22,13 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
         marginTop: '0',
         boxShadow: `0px 12px 36px rgba(51, 84, 134, 0.4)`,
         '&:active': {
-          transform: 'scale(1.1)',
+          transform: 'scale(1.2)',
         },
         '&:hover': {
           outline: 'none',
           backgroundPosition: 'bottom',
           border: 'none',
+          transform: 'scale(1.1)',
         },
         '&:focus-visible': {
           outline: 'none',
@@ -40,6 +41,8 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
         '&.Mui-disabled': {
           background: '#3D414E4D',
           color: '#696E80',
+          boxShadow: 'none',
+          fontFamily: 'Inter-SemiBold',
         },
       },
     },

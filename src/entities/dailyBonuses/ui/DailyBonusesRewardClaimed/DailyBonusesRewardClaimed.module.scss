@@ -13,6 +13,9 @@
   gap: 7px;
   transition: all 0.5s;
   box-shadow: -2px 8px 20px 3px rgba(51, 84, 134, 0.4);
+  @media (max-width: 980px) {
+    min-width: 157px;
+  }
   &:hover {
     transform: scale(0.8);
   }

@@ -1,0 +1,20 @@
+.TasksList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+@media (max-width: 980px) {
+  .TasksList {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+@media (max-width: 540px) {
+  .TasksList {
+    margin-top: 12px;
+    grid-template-columns: 1fr;
+  }
+}
