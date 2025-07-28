@@ -1,5 +1,7 @@
 import { Button, Typography } from '@mui/material';
 
+import TicketIcon from '@shared/assets/icons/Ticket.svg?react';
+
 import cls from './RouletteFooter.module.scss';
 
 interface RouletteFooterProps {
@@ -14,6 +16,9 @@ export const RouletteFooter = (props: RouletteFooterProps) => {
     <div className={cls.RouletteFooter}>
       <Typography variant="body2">
         Получите предмет, если 3 слота совпадут
+      </Typography>
+      <Typography variant="h2" className={cls.courtTicket}>
+        x3 <TicketIcon />
       </Typography>
       <Button className={cls.btn} onClick={onClick} disabled={disabled}>
         {disabled ? 'Крутим...' : 'Крутить'}

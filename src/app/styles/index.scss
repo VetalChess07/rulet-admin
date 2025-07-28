@@ -41,6 +41,8 @@
 
   --container-width: 1200px;
 
+  --color-text-footer: #626676cc;
+
   --border-color: #23262f;
 
   --media-xl: 1200px;
@@ -68,6 +70,13 @@
 *::-webkit-scrollbar-thumb {
   background-color: var(--accent-color);
   border-radius: 4px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  padding-right: var(--padding-sm);
+  padding-left: var(--padding-sm);
 }
 
 body {

@@ -21,4 +21,10 @@
     align-items: center;
     gap: 7px;
   }
+
+  @media (max-width: 780px) {
+    .courtTicket {
+      display: none;
+    }
+  }
 }
