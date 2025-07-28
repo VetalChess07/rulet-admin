@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cls from './VerticalSlot.module.scss';
 import { SlotData } from '../../model/types/roulette';
 import { RouletteFooter } from '../RouletteFooter/RouletteFooter';
 import { BOX_SHADOW } from '@/shared/conts/ui';
+import { ModalGameWin } from '../ModalGameWin/ModalGameWin';
+import { useInitialEffect } from '@/shared/hook/useInitialEffect/useInitialEffect';
+import { ModalGameLose } from '../ModalGameLose/ModalGameLose';
 
 const SLOT_HEIGHT = 73;
 const VISIBLE_SLOTS = 3;
@@ -13,11 +16,20 @@ interface Props {
 }
 
 export const VerticalSlot: React.FC<Props> = ({ slots }) => {
+  const [open, setOpen] = useState(false);
+  const [winData, setWinData] = useState<SlotData | null>(null);
+
   const [spinning, setSpinning] = useState(false);
   const [offset, setOffset] = useState(0);
   const [transition, setTransition] = useState('');
 
   const centerIndex = Math.floor(VISIBLE_SLOTS / 2);
+
+  useInitialEffect(() => {
+    const data = slots.find((slot) => slot[3] === 'win');
+
+    setWinData(data ?? null);
+  });
 
   const winIndexes = slots
     .map((slot, i) => (slot[3] === 'win' ? i : -1))
@@ -46,6 +58,7 @@ export const VerticalSlot: React.FC<Props> = ({ slots }) => {
 
     setTimeout(() => {
       setSpinning(false);
+      setOpen(true);
     }, 3100);
   };
 
@@ -155,6 +168,15 @@ export const VerticalSlot: React.FC<Props> = ({ slots }) => {
       </div>
 
       <RouletteFooter onClick={startSpin} disabled={spinning} />
+      {winData ? (
+        <ModalGameWin
+          prize={winData}
+          open={open}
+          onClose={() => setOpen(false)}
+        />
+      ) : (
+        <ModalGameLose open={open} onClose={() => setOpen(false)} />
+      )}
     </div>
   );
 };
