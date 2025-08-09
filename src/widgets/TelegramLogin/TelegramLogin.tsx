@@ -5,8 +5,7 @@ import {
 } from '@/app/providers/TelegramAuthProvider';
 
 export const TelegramLogin = () => {
-  const { user, login, logout, widgetVisible, setWidgetVisible } =
-    useTelegramAuth();
+  const { user, logout, login } = useTelegramAuth();
 
   return (
     <div className={cls.TelegramLogin}>

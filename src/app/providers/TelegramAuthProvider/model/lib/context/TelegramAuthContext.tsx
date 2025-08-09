@@ -13,7 +13,10 @@ export const TelegramAuthProvider: React.FC<{ children: React.ReactNode }> = ({
     if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  const login = () => setWidgetVisible(true);
+  const login = (user: any) => {
+    localStorage.setItem('tgUser', JSON.stringify(user));
+    setUser(user);
+  };
 
   const logout = () => {
     localStorage.removeItem('tgUser');

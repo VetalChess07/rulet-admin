@@ -4,6 +4,6 @@ import cls from './Header.module.scss';
 
 export const Header = () => (
   <header className={cls.Header}>
-    <Nav />
+    <Nav isTgWidget />
   </header>
 );
