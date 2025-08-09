@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { User } from '../../types/tg';
 import { TelegramAuthContext } from './telegramAuthContext';
 
@@ -22,7 +22,7 @@ export const TelegramAuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <TelegramAuthContext.Provider
-      value={{ user, login, logout, widgetVisible, setWidgetVisible }}
+      value={{ user, setUser, login, logout, widgetVisible, setWidgetVisible }}
     >
       {children}
     </TelegramAuthContext.Provider>

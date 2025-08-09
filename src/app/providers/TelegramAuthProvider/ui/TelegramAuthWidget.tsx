@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { onAuth } from '../model/onAuth';
+import { useTelegramAuth } from '../model/lib/hook/useTelegramAuth';
 
 const TELEGRAM_BOT_NAME = import.meta.env.VITE_TG_BOT_NAME || '';
 
 export const TelegramAuthWidget = () => {
+  const { setUser } = useTelegramAuth();
+
   useEffect(() => {
     const container = document.getElementById('telegram-login-widget');
     if (!container) return;
@@ -23,7 +26,7 @@ export const TelegramAuthWidget = () => {
     container.appendChild(script);
 
     (window as any).onTelegramAuth = (userData: any) => {
-      onAuth(userData);
+      onAuth({ setUser, userData });
     };
 
     return () => {
