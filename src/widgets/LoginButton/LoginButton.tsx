@@ -3,10 +3,20 @@ import TgIcon from '@shared/assets/icons/tgIcon.svg?react';
 
 import cls from './LoginButton.module.scss';
 
-export const LoginButton = () => {
+interface LoginButtonProps {
+  onClick: () => void;
+}
+
+export const LoginButton = (props: LoginButtonProps) => {
+  const { onClick } = props;
+
   return (
-    <Button className={cls.LoginButton} startIcon={<TgIcon />}>
-      Войти
+    <Button
+      onClick={onClick}
+      className={cls.LoginButton}
+      startIcon={<TgIcon />}
+    >
+      Выйти
     </Button>
   );
 };

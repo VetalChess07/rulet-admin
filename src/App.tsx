@@ -5,17 +5,14 @@ import ThemeProvider from './app/providers/themeProvider/ui/ThemeProvider';
 import { ErrorBoundary } from './app/providers/ErrorBoundary';
 
 import '@app/styles/index.scss';
-import { TelegramAuthProvider } from './app/providers/TelegramAuthProvider';
 
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
-        <TelegramAuthProvider>
-          <ErrorBoundary>
-            <AppRouter />
-          </ErrorBoundary>
-        </TelegramAuthProvider>
+        <ErrorBoundary>
+          <AppRouter />
+        </ErrorBoundary>
       </BrowserRouter>
     </ThemeProvider>
   );

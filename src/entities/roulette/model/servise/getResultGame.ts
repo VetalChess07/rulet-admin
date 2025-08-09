@@ -1,32 +1,31 @@
 import { Dispatch, SetStateAction } from 'react';
 import api from '@/shared/api/axiosConfig';
 import { GetResultGameResponse } from '../types/roulette';
+import { TG_USER } from '@/shared/conts/localStorage';
 
 type GetResultGameParams = {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string | null>>;
-  setGameData: Dispatch<SetStateAction<GetResultGameResponse | null>>;
-  query?: Record<string, string | number | boolean>;
 };
 
 export const getResultGame = async ({
   setIsLoading,
   setError,
-  setGameData,
-  query = {},
 }: GetResultGameParams) => {
   try {
     setIsLoading(true);
     setError(null);
 
     const res = await api.get<GetResultGameResponse>('/users/start_game', {
-      params: query,
+      params: {
+        user_info: localStorage.getItem(TG_USER),
+      },
     });
 
-    setGameData(res.data);
+    return res.data;
   } catch (err) {
     setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
-    setGameData(null);
+    return null;
   } finally {
     setIsLoading(false);
   }
