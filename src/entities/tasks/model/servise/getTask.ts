@@ -22,7 +22,6 @@ export const getTask = async ({
     setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
     setTasks(null);
   } finally {
-    console.log('');
     setIsLoading(false);
   }
 };

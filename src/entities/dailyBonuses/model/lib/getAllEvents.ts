@@ -22,7 +22,6 @@ export const getAllEvents = async ({
     setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
     setAllEvents(null);
   } finally {
-    console.log('');
     setIsLoading(false);
   }
 };

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { VerticalSlot } from '../VerticalSlot/VerticalSlot';
 import img1 from '@shared/assets/images/item.png';
 import img2 from '@shared/assets/images/kristall.png';

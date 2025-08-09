@@ -4,7 +4,7 @@ import { PrizesList } from '../PrizesList/PrizesList';
 import cls from './Prizes.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useGetPrizes } from '../../model/lib/hook/useGetPrizes';
-import { Alert } from '@mui/material';
+
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
 
 export const Prizes = () => {
@@ -16,7 +16,7 @@ export const Prizes = () => {
       </div>
     );
 
-  if (error || prizes == null) return <ErrorAlert sx={{ marginTop: '24px' }} />;
+  if (error) return <ErrorAlert sx={{ marginTop: '24px' }} />;
 
   return (
     <section className={classNames(cls.Prizes, {}, ['container'])}>

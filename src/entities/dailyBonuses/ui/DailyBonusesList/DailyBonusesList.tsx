@@ -15,8 +15,7 @@ export const DailyBonusesList = () => {
       </div>
     );
 
-  if (error || allEvents == null)
-    return <ErrorAlert sx={{ marginTop: '24px' }} />;
+  if (error) return <ErrorAlert sx={{ marginTop: '24px' }} />;
 
   return (
     <div className={cls.DailyBonusesList}>

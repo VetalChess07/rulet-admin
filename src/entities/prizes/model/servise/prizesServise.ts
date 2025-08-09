@@ -22,7 +22,6 @@ export const getAllPrizes = async ({
     setError(err instanceof Error ? err.message : 'Неизвестная ошибка');
     setPrizes(null);
   } finally {
-    console.log('');
     setIsLoading(false);
   }
 };

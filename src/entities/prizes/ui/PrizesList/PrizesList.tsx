@@ -4,7 +4,7 @@ import { PrizesListItem } from '../PrizesListItem/PrizesListItem';
 import cls from './PrizesList.module.scss';
 
 interface PrizesListProps {
-  prizes: Prize[];
+  prizes?: Prize[] | null;
 }
 
 export const PrizesList = (props: PrizesListProps) => {
@@ -12,7 +12,7 @@ export const PrizesList = (props: PrizesListProps) => {
 
   return (
     <div className={cls.PrizesList}>
-      {prizes.map((prize) => (
+      {prizes?.map((prize) => (
         <PrizesListItem key={prize.id} prize={prize} />
       ))}
     </div>

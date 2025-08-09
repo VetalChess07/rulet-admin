@@ -16,7 +16,7 @@ export const TasksList = () => {
       </div>
     );
 
-  if (error || tasks == null) return <ErrorAlert sx={{ marginTop: '24px' }} />;
+  if (error) return <ErrorAlert sx={{ marginTop: '24px' }} />;
 
   return (
     <div className={cls.TasksList}>

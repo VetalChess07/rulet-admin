@@ -10,8 +10,8 @@ export const Nav = () => {
     <div className={cls.Nav}>
       <Logo />
       <LogoGame className={cls.logoGame} />
-      <LoginButton />
-      {/* <TelegramLogin /> */}
+      {/* <LoginButton /> */}
+      <TelegramLogin />
     </div>
   );
 };
