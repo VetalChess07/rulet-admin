@@ -1,29 +1,32 @@
-import { useState } from 'react';
 import cls from './DailyBonusesList.module.scss';
-import {
-  DailyBonuses,
-  DailyBonusesStatus,
-} from '../../model/types/dailyBonuses';
-import { getDailyBonusComponentByStatus } from '../../model/lib/getDailyBonusComponentByStatus';
+
+import { useGetAllEvents } from '../../model/lib/hook/useGetAllEvents';
+import { CircularProgress } from '@mui/material';
+import { DailyBonusesRewardClaimed } from '../DailyBonusesRewardClaimed/DailyBonusesRewardClaimed';
+import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
 
 export const DailyBonusesList = () => {
-  const [state, setState] = useState<DailyBonuses[] | undefined>([
-    { day: 'Понедельник', status: DailyBonusesStatus.CLAIMED },
-    { day: 'Вторник', status: DailyBonusesStatus.CLAIMED },
-    { day: 'Среда', status: DailyBonusesStatus.CLAIMED },
-    { day: 'Четверг', status: DailyBonusesStatus.CLAIMED },
-    { day: 'Пятница', status: DailyBonusesStatus.AVAILABLE },
-    { day: 'Суббота', status: DailyBonusesStatus.LOCKED },
-    { day: 'Воскресенье', status: DailyBonusesStatus.LOCKED },
-  ]);
+  const { error, isLoading, refetch, allEvents } = useGetAllEvents();
 
-  if (!state) return null;
+  if (isLoading)
+    return (
+      <div className={cls.loader}>
+        <CircularProgress sx={{ color: 'var(--accent-color)' }} />
+      </div>
+    );
+
+  if (error || allEvents == null)
+    return <ErrorAlert sx={{ marginTop: '24px' }} />;
 
   return (
     <div className={cls.DailyBonusesList}>
-      {state?.map((item, index) =>
-        getDailyBonusComponentByStatus({ data: item, setState, index }),
-      )}
+      {allEvents?.map((event) => (
+        <DailyBonusesRewardClaimed
+          key={event.id}
+          refetch={refetch}
+          event={event}
+        />
+      ))}
     </div>
   );
 };

@@ -1,43 +1,21 @@
-import React, { Dispatch, SetStateAction } from 'react';
-
-import IconTicketActive from '@shared/assets/icons/ticketActive.svg?react';
-
 import cls from './DailyBonusesRewardClaimed.module.scss';
-import { Typography } from '@mui/material';
-import {
-  DailyBonuses,
-  DailyBonusesStatus,
-} from '../../model/types/dailyBonuses';
+import { DailyBonuses } from '../../model/types/dailyBonuses';
+
+const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
 interface DailyBonusesRewardClaimedProps {
-  text: string;
-  setState: Dispatch<SetStateAction<DailyBonuses[] | undefined>>;
-  index: number;
+  event: DailyBonuses;
+  refetch: () => void;
 }
 
 export const DailyBonusesRewardClaimed = (
   props: DailyBonusesRewardClaimedProps,
 ) => {
-  const { text, setState, index } = props;
-
-  const handleClick = () => {
-    setState((prev) =>
-      prev
-        ? prev.map((item, i) =>
-            i === index
-              ? { ...item, status: DailyBonusesStatus.CLAIMED }
-              : item,
-          )
-        : prev,
-    );
-  };
+  const { event, refetch } = props;
 
   return (
-    <div className={cls.DailyBonusesRewardClaimed} onClick={handleClick}>
-      <IconTicketActive />
-      <Typography className={cls.text} variant="body2">
-        {text}
-      </Typography>
+    <div className={cls.DailyBonusesRewardClaimed} onClick={refetch}>
+      <img className={cls.img} src={`${imgApi}${event.picture}`} alt="" />
     </div>
   );
 };

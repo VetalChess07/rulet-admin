@@ -10,36 +10,28 @@ import cls from './TasksListItemCompleted.module.scss';
 
 interface TasksListItemCompletedProps {
   task: Task;
-  setTasks: Dispatch<SetStateAction<Task[]>>;
+  refetch: () => void;
 }
 
 export const TasksListItemCompleted = (props: TasksListItemCompletedProps) => {
-  const { task, setTasks } = props;
+  const { task, refetch } = props;
 
-  const titleWords = task.title.split(' ');
+  const titleWords = task.name.split(' ');
   const titleHalf = Math.ceil(titleWords.length / 2);
   const title = titleWords.slice(0, titleHalf).join(' ');
   const titleActive = titleWords.slice(titleHalf).join(' ');
 
-  const taskWords = task.task.split(' ');
+  const taskWords = task.description.split(' ');
   const taskHalf = Math.ceil(titleWords.length / 2);
   const taskText = taskWords.slice(0, taskHalf).join(' ');
   const taskTextActive = taskWords.slice(taskHalf).join(' ');
 
-  const handleClick = () => {
-    setTasks((prev) =>
-      prev
-        ? prev.map((item, i) =>
-            item.id === task.id
-              ? { ...item, status: TaskStatus.NOTCOMPLETED }
-              : item,
-          )
-        : prev,
-    );
+  const goToTask = () => {
+    console.log(task.api);
   };
 
   return (
-    <div className={cls.TasksListItemCompleted} onClick={handleClick}>
+    <div className={cls.TasksListItemCompleted} onClick={refetch}>
       <div className={cls.header}>
         <Typography className={cls.title} variant="subtitle2">
           <span>{title}</span>
@@ -58,7 +50,9 @@ export const TasksListItemCompleted = (props: TasksListItemCompletedProps) => {
       <IconTicketActive className={cls.IconTicketActive} />
 
       <div className={cls.item}>
-        <Button className={cls.btn}>Сделано</Button>
+        <Button onClick={goToTask} className={cls.btn}>
+          Сделано
+        </Button>
         <img className={cls.money} src={ImgMoney} alt="приз" />
       </div>
     </div>

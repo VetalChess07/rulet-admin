@@ -1,0 +1,19 @@
+.Prizes {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 32px;
+
+  @media (max-width: 580px) {
+    margin-top: 24px;
+  }
+}
+
+.laoder {
+  margin-top: 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

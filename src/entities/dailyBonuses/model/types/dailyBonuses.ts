@@ -5,6 +5,9 @@ export enum DailyBonusesStatus {
 }
 
 export interface DailyBonuses {
-  day: string;
-  status: DailyBonusesStatus;
+  id: number;
+  createdAt: string;
+  picture: string;
+  date_event: string;
+  updatedAt: string;
 }

@@ -96,3 +96,9 @@ body {
 .text60 {
   color: rgba(var(--primary-text-color-rgb), 0.6); // 60% прозрачность
 }
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}

@@ -17,7 +17,7 @@ export const TasksListItemNotCompleted = (
   return (
     <div className={cls.TasksListItemNotCompleted}>
       <div className={cls.header}>
-        <Typography variant="subtitle2">{task.title}</Typography>
+        <Typography variant="subtitle2">{task.description}</Typography>
         <Typography className={cls.description} variant="body1">
           {task.description}
         </Typography>
