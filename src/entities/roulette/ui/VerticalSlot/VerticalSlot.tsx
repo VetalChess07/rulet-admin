@@ -67,7 +67,7 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
 
   const startSpin = async () => {
     if (spinning) return;
-    if (!images) return null;
+    if (!images || !initSlot) return null;
     const matrix = createRows(images, 4, 9);
     setInitSlot(matrix);
     const res = await getResultGame({
