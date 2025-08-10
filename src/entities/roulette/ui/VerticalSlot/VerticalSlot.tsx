@@ -8,25 +8,16 @@ import { ModalGameLose } from '../ModalGameLose/ModalGameLose';
 import { getResultGame } from '../../model/servise/getResultGame';
 import { Prize } from '@/entities/prizes';
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
-import { CircularProgress } from '@mui/material';
+import { Alert, CircularProgress, Snackbar } from '@mui/material';
+import { ModalGameWin } from '../ModalGameWin/ModalGameWin';
+import { ModalNoAuth } from '../ModalNoAuth/ModalNoAuth';
+import { TG_USER } from '@/shared/conts/localStorage';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
 const SLOT_HEIGHT = 73;
 const VISIBLE_SLOTS = 3;
 const SPIN_ROUNDS = 3;
-
-// const initData = [
-//   [img1, img1, img1, img1],
-//   [img1, img1, img1, img1],
-//   [img1, img1, img1, img1],
-//   [img1, img1, img1, img1],
-//   [img1, img1, img1, img1],
-//   [img1, img1, img1, img1],
-//   [img1, img1, img1, img1],
-//   ['img1', 'img1', 'img1', 'img1'],
-//   [img1, img1, img1, img2],
-// ];
 
 interface VerticalSlotProps {
   errorPrizes: string | null;
@@ -36,9 +27,11 @@ interface VerticalSlotProps {
 }
 
 export const VerticalSlot = (props: VerticalSlotProps) => {
-  const { errorPrizes, isLoadingPrizes, prizes } = props;
+  const { errorPrizes, isLoadingPrizes, prizes, refetchPrizes } = props;
 
   const [open, setOpen] = useState(false);
+  const [openIsAuth, setOpenIsAuth] = useState(false);
+
   const [spinning, setSpinning] = useState(false);
   const [offset, setOffset] = useState(0);
   const [transition, setTransition] = useState('');
@@ -48,6 +41,15 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
   const [error, setError] = useState<string | null>(null);
   const [slots, setSlots] = useState<SlotData[]>();
   const [isLoading, setIsLoading] = useState(false);
+
+  const [isJackpot, setIsJackpot] = useState(false);
+
+  const [prize, setPrize] = useState<Prize | null>({
+    id: 2,
+    name: 'Скидка 15%',
+    picture: '02aa11cf-f734-45a4-9c6b-5de4ef4d8b7f.png',
+    description: 'Скидка 15%',
+  });
 
   const createInitData = (prizes: Prize[]): SlotData[] => {
     return prizes.map((p) => {
@@ -66,6 +68,15 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
   const centerIndex = Math.floor(VISIBLE_SLOTS / 2);
 
   const startSpin = async () => {
+    const isAuth = localStorage.getItem(TG_USER);
+
+    if (!isAuth) {
+      setOpenIsAuth(true);
+      return null;
+    }
+
+    setOpenIsAuth(false);
+
     if (spinning) return;
     if (!images || !initSlot) return null;
     const matrix = createRows(images, 4, 9);
@@ -74,13 +85,23 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
       setError,
       setIsLoading,
     });
+    refetchPrizes();
 
-    const newSlot = res?.prizes?.map((data) => data.picture) ?? [
+    if (!res) return null;
+
+    setIsJackpot(res.isJackpot);
+
+    const currentPrize = res.isJackpot ? res.prizes[0] : null;
+    setPrize(currentPrize);
+
+    const newSlot = res?.prizes?.map((data) => `${imgApi}${data.picture}`) ?? [
       'h',
       'httpsfield_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
       'https://promo.donatov.et/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
       'https://promo.donaov.net/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
     ];
+
+    console.log(newSlot);
 
     const newData = [
       ...initSlot.slice(0, initSlot.length - 1),
@@ -205,6 +226,17 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
 
   return (
     <div>
+      {isJackpot ? (
+        <ModalGameWin
+          prize={prize}
+          open={open}
+          onClose={() => setOpen(false)}
+        />
+      ) : (
+        <ModalGameLose open={open} onClose={() => setOpen(false)} />
+      )}
+      <ModalNoAuth open={openIsAuth} onClose={() => setOpenIsAuth(false)} />
+      {error && <Alert severity="error" title="Ошибка" children={error} />}
       <div
         className={cls.VerticalSlotMachine}
         style={{ height: SLOT_HEIGHT * VISIBLE_SLOTS * 1.1 }}
@@ -246,9 +278,6 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
       </div>
 
       <RouletteFooter onClick={startSpin} disabled={spinning || isLoading} />
-
-      {/* Показываем только модал проигрыша */}
-      <ModalGameLose open={open} onClose={() => setOpen(false)} />
     </div>
   );
 };

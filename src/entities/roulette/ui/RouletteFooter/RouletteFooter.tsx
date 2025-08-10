@@ -15,7 +15,7 @@ export const RouletteFooter = (props: RouletteFooterProps) => {
   return (
     <div className={cls.RouletteFooter}>
       <Typography variant="body2">
-        Получите предмет, если 3 слота совпадут
+        Получите предмет, если 4 слота совпадут
       </Typography>
       <Typography variant="h2" className={cls.courtTicket}>
         x3 <TicketIcon />

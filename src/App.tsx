@@ -5,13 +5,16 @@ import ThemeProvider from './app/providers/themeProvider/ui/ThemeProvider';
 import { ErrorBoundary } from './app/providers/ErrorBoundary';
 
 import '@app/styles/index.scss';
+import { LocalizationProvider } from './app/providers/localizationProvider';
 
 function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
         <ErrorBoundary>
-          <AppRouter />
+          <LocalizationProvider>
+            <AppRouter />
+          </LocalizationProvider>
         </ErrorBoundary>
       </BrowserRouter>
     </ThemeProvider>

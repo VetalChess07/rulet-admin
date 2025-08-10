@@ -16,3 +16,9 @@ export interface GetResultGameResponse {
   prizes_value: string;
   isJackpot: boolean;
 }
+
+export interface GetResultAttempResponse {
+  attempt: number;
+  isJackpot: boolean;
+  status: number;
+}

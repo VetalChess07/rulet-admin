@@ -8,20 +8,25 @@ import {
   Typography,
   IconButton,
 } from '@mui/material';
-import { SlotData } from '../../model/types/roulette';
 
 import CloseIcon from '@shared/assets/icons/close.svg?react';
 
 import cls from './ModalGameWin.module.scss';
+import { Prize } from '@/entities/prizes';
+
+const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
 interface ModalGameWinProps {
   open: boolean;
-  prize: SlotData;
+  prize: Prize | null;
   onClose: () => void;
 }
 
 export const ModalGameWin = (props: ModalGameWinProps) => {
   const { onClose, open, prize } = props;
+
+  console.log(prize);
+  if (!prize) return null;
 
   return (
     <Dialog
@@ -50,10 +55,14 @@ export const ModalGameWin = (props: ModalGameWinProps) => {
         </Typography>
         <div className={cls.box}>
           <div className={cls.imageWrapper}>
-            <img className={cls.img} src={prize[0]} alt="приз" />
+            <img
+              className={cls.img}
+              src={`${imgApi}${prize.picture}`}
+              alt={prize.name}
+            />
           </div>
           <Typography className={cls.name} variant="body2">
-            Название предмета
+            {prize.name}
           </Typography>
         </div>
         <Button className={cls.btn} onClick={onClose}>

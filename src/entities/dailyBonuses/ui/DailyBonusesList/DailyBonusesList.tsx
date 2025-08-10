@@ -2,13 +2,32 @@ import cls from './DailyBonusesList.module.scss';
 
 import { useGetAllEvents } from '../../model/lib/hook/useGetAllEvents';
 import { CircularProgress } from '@mui/material';
-import { DailyBonusesRewardClaimed } from '../DailyBonusesRewardClaimed/DailyBonusesRewardClaimed';
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
+import { getDailyBonusComponentByStatus } from '../../model/lib/getDailyBonusComponentByStatus';
+import { checkDailiyBonuses } from '../../model/servise/checkDailiyBonuses';
+import { useState } from 'react';
+import { TG_USER } from '@/shared/conts/localStorage';
+import { DailyBonusesLocked } from '../DailyBonusesLocked/DailyBonusesLocked';
 
 export const DailyBonusesList = () => {
   const { error, isLoading, refetch, allEvents } = useGetAllEvents();
 
-  if (isLoading)
+  const [isLoadingCheck, setIsLoadingCheck] = useState(false);
+  const [errorCheck, setErrorCheck] = useState<string | null>('');
+
+  const onHandleDailyBonus = async (id: number) => {
+    await checkDailiyBonuses({
+      id,
+      setError: setErrorCheck,
+      setIsLoading: setIsLoadingCheck,
+    });
+    refetch();
+  };
+  const isAuth = localStorage.getItem(TG_USER);
+
+  console.log('allEvents', allEvents);
+
+  if (isLoading || isLoadingCheck)
     return (
       <div className={cls.loader}>
         <CircularProgress sx={{ color: 'var(--accent-color)' }} />
@@ -18,14 +37,21 @@ export const DailyBonusesList = () => {
   if (error) return <ErrorAlert sx={{ marginTop: '24px' }} />;
 
   return (
-    <div className={cls.DailyBonusesList}>
-      {allEvents?.map((event) => (
-        <DailyBonusesRewardClaimed
-          key={event.id}
-          refetch={refetch}
-          event={event}
-        />
-      ))}
-    </div>
+    <>
+      {errorCheck && (
+        <ErrorAlert message={errorCheck} sx={{ marginTop: '24px' }} />
+      )}
+      <div className={cls.DailyBonusesList}>
+        {allEvents?.map((event) => {
+          if (isAuth) {
+            return getDailyBonusComponentByStatus({
+              data: event,
+              onSave: () => onHandleDailyBonus(event.event.id),
+            });
+          }
+          return <DailyBonusesLocked data={event} />;
+        })}
+      </div>
+    </>
   );
 };

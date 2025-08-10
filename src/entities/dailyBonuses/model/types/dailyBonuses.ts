@@ -1,13 +1,22 @@
 export enum DailyBonusesStatus {
-  LOCKED = 'LOCKED',
-  AVAILABLE = 'AVAILABLE',
-  CLAIMED = 'CLAIMED',
+  ENDTIME = 'end_time',
+  ACTIVE = 'active',
+  TIMELIMIT = 'time_limit',
 }
 
 export interface DailyBonuses {
-  id: number;
+  event: {
+    id: number;
+    picture: string;
+    date_event: string;
+  };
+  visible: DailyBonusesStatus;
+}
+
+export interface DailyBonusesIsNoneAuth {
   createdAt: string;
-  picture: string;
   date_event: string;
+  id: number;
+  picture: string;
   updatedAt: string;
 }

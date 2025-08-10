@@ -1,34 +1,26 @@
 import { DailyBonuses, DailyBonusesStatus } from '../types/dailyBonuses';
 
-import { DailyBonusesRewardClaimed } from '../../ui/DailyBonusesRewardClaimed/DailyBonusesRewardClaimed';
+import { DailyBonusesRewardActive } from '../../ui/DailyBonusesRewardActive/DailyBonusesRewardActive';
 import { DailyBonusesLocked } from '../../ui/DailyBonusesLocked/DailyBonusesLocked';
-import { DailyBonusesClaimDailyReward } from '../../ui/DailyBonusesClaimDailyReward/DailyBonusesClaimDailyReward';
+import { DailyBonusesDailyReceived } from '../../ui/DailyBonusesDailyReceived/DailyBonusesDailyReceived';
 import { Dispatch, SetStateAction } from 'react';
 
 type GetDailyBonusComponentByStatusParams = {
   data: DailyBonuses;
-  setState: Dispatch<SetStateAction<DailyBonuses[] | undefined>>;
-  index: number;
+  onSave: (id: number) => void;
 };
 
 export const getDailyBonusComponentByStatus = ({
   data,
-  setState,
-  index,
+  onSave,
 }: GetDailyBonusComponentByStatusParams) => {
-  switch (data.status) {
-    case DailyBonusesStatus.CLAIMED:
-      return <DailyBonusesClaimDailyReward day={data.day} />;
-    case DailyBonusesStatus.AVAILABLE:
-      return (
-        <DailyBonusesRewardClaimed
-          setState={setState}
-          text={'Взять билет!'}
-          index={index}
-        />
-      );
-    case DailyBonusesStatus.LOCKED:
-      return <DailyBonusesLocked day={data.day} />;
+  switch (data.visible) {
+    case DailyBonusesStatus.ENDTIME:
+      return <DailyBonusesDailyReceived data={data} />;
+    case DailyBonusesStatus.ACTIVE:
+      return <DailyBonusesRewardActive onSave={onSave} data={data} />;
+    case DailyBonusesStatus.TIMELIMIT:
+      return <DailyBonusesLocked data={data} />;
     default:
       return null;
   }

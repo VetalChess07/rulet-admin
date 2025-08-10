@@ -1,6 +1,6 @@
 @import '../../../../app/styles/mixin.scss';
 
-.ModalGameWin {
+.ModalGameLose {
   position: relative;
   .paper {
     background-color: var(--bg-modal);
@@ -19,36 +19,27 @@
     .title {
       font-family: 'Inter-Bold';
       display: flex;
-      color: var(--light);
+      color: var(--light); // обычный текст
+    }
 
-      .accentColor {
-        font-family: 'Inter-Bold';
-        @include primary-gradient;
-      }
+    .accentColor {
+      font-family: 'Inter-Bold';
+      @include primary-gradient;
     }
 
     .box {
       .imageWrapper {
         position: relative;
-        width: 115px;
-        height: 115px;
+
         margin-top: 29px;
-
-        &::after {
-          content: '';
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-
-          border-radius: 50%;
-          box-shadow: 0px 0px 52px 52px var(--accent-color);
-          z-index: 0;
-        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         .img {
-          width: 100%;
-          height: 100%;
+          max-width: 100%;
+          width: 115px;
+          height: 115px;
           object-fit: contain;
           position: relative;
           z-index: 1;
@@ -56,14 +47,18 @@
       }
 
       .name {
-        text-align: center;
-        margin-top: 9px;
+        margin-top: 32px;
+        color: var(--light);
       }
     }
 
     .btn {
+      width: 100%;
       font-family: 'Inter-Medium';
       margin-top: 49px;
+      background: #22242c !important;
+      box-shadow: none;
+      color: #7f8394;
     }
   }
 }

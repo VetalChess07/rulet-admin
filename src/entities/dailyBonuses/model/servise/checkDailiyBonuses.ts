@@ -1,26 +1,30 @@
-import { Dispatch, SetStateAction } from 'react';
 import api, { ApiError, ApiErrorAuth } from '@/shared/api/axiosConfig';
-import { GetResultGameResponse } from '../types/roulette';
 import { TG_USER } from '@/shared/conts/localStorage';
 import { AxiosError } from 'axios';
+import { Dispatch, SetStateAction } from 'react';
 
-type GetResultGameParams = {
+type CheckDailiyBonusesParams = {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string | null>>;
+
+  id: number;
 };
 
-export const getResultGame = async ({
+export const checkDailiyBonuses = async ({
   setIsLoading,
   setError,
-}: GetResultGameParams) => {
+
+  id,
+}: CheckDailiyBonusesParams) => {
   try {
     setIsLoading(true);
     setError(null);
 
-    const res = await api.get<GetResultGameResponse>('/users/start_game', {
-      params: {
-        user_info: localStorage.getItem(TG_USER),
-      },
+    const userInfo = localStorage.getItem(TG_USER);
+
+    const res = await api.post('/events_users/check', {
+      user_info: userInfo,
+      id,
     });
 
     return res.data;
@@ -28,7 +32,6 @@ export const getResultGame = async ({
     if (err instanceof AxiosError) {
       const axiosError = err as AxiosError<ApiError>;
       const message = err.response?.data.message as AxiosError<ApiErrorAuth>;
-
       const apiError = axiosError?.response?.data.text ?? 'Неизвестная ошибка';
 
       setError(`${message ?? apiError}`);

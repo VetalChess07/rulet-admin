@@ -38,13 +38,10 @@ export const TasksListItemCompleted = (props: TasksListItemCompletedProps) => {
           <span className={cls.accent}> {titleActive}</span>
         </Typography>
 
-        <Typography className={cls.task} variant="body1">
+        {/* <Typography className={cls.task} variant="body1">
           <span>{taskText}</span>
           <span className={cls.accent}> {taskTextActive}</span>
-          {/* <Typography className={cls.task} variant="body1">
-            {task.task}
-          </Typography> */}
-        </Typography>
+        </Typography> */}
         <Typography variant="body1">{task.description}</Typography>
       </div>
       <IconTicketActive className={cls.IconTicketActive} />

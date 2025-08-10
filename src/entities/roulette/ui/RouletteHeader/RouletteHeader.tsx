@@ -4,7 +4,15 @@ import TicketIcon from '@shared/assets/icons/Ticket.svg?react';
 
 import cls from './RouletteHeader.module.scss';
 
-export const RouletteHeader = () => {
+interface RouletteHeaderProps {
+  attemp: number;
+}
+
+export const RouletteHeader = (props: RouletteHeaderProps) => {
+  const { attemp } = props;
+
+  console.log(attemp);
+
   return (
     <div className={cls.RouletteHeader}>
       <div className={cls.item}>
@@ -21,7 +29,7 @@ export const RouletteHeader = () => {
         </Typography>
       </div>
       <Typography variant="h2" className={cls.courtTicket}>
-        x3 <TicketIcon />
+        x{attemp} <TicketIcon />
       </Typography>
     </div>
   );

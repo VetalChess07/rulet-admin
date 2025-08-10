@@ -39,6 +39,7 @@
     .title {
       width: 100%;
       max-width: 85%;
+      line-height: 28px;
       .accent {
         @include primary-gradient;
       }

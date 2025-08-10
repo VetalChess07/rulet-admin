@@ -1,28 +1,34 @@
 import { Dispatch, SetStateAction } from 'react';
 import api, { ApiError, ApiErrorAuth } from '@/shared/api/axiosConfig';
-import { GetResultGameResponse } from '../types/roulette';
+import {
+  GetResultAttempResponse,
+  GetResultGameResponse,
+} from '../types/roulette';
 import { TG_USER } from '@/shared/conts/localStorage';
 import { AxiosError } from 'axios';
 
-type GetResultGameParams = {
+type GetAttempParams = {
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   setError: Dispatch<SetStateAction<string | null>>;
+  setAttemp: Dispatch<SetStateAction<number>>;
 };
 
-export const getResultGame = async ({
+export const getAttemp = async ({
   setIsLoading,
   setError,
-}: GetResultGameParams) => {
+  setAttemp,
+}: GetAttempParams) => {
   try {
     setIsLoading(true);
     setError(null);
 
-    const res = await api.get<GetResultGameResponse>('/users/start_game', {
+    const res = await api.get<GetResultAttempResponse>('/users/get_attempt', {
       params: {
         user_info: localStorage.getItem(TG_USER),
       },
     });
 
+    setAttemp(res.data.attempt);
     return res.data;
   } catch (err) {
     if (err instanceof AxiosError) {
