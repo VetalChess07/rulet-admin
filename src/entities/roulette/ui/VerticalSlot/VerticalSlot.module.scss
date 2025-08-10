@@ -71,6 +71,9 @@
     object-fit: contain;
     pointer-events: none;
     user-select: none;
+    @media (max-width: 580px) {
+      min-height: 73px;
+    }
   }
 }
 .loader {

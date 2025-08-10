@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import cls from './VerticalSlot.module.scss';
-import { GetResultGameResponse, SlotData } from '../../model/types/roulette';
+import { SlotData } from '../../model/types/roulette';
 import { RouletteFooter } from '../RouletteFooter/RouletteFooter';
 import { BOX_SHADOW } from '@/shared/conts/ui';
 import { ModalGameLose } from '../ModalGameLose/ModalGameLose';
 
-import img1 from '@shared/assets/images/item.png';
-import img2 from '@shared/assets/images/kristall.png';
 import { getResultGame } from '../../model/servise/getResultGame';
 import { Prize } from '@/entities/prizes';
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
@@ -45,17 +43,33 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
   const [offset, setOffset] = useState(0);
   const [transition, setTransition] = useState('');
 
-  const [initSlot, setInitSlot] = useState();
+  const [initSlot, setInitSlot] = useState<SlotData[]>();
 
   const [error, setError] = useState<string | null>(null);
   const [slots, setSlots] = useState<SlotData[]>();
   const [isLoading, setIsLoading] = useState(false);
 
+  const createInitData = (prizes: Prize[]): SlotData[] => {
+    return prizes.map((p) => {
+      const urls = p.picture.split(',').map((url) => `${imgApi}${url}`);
+
+      return urls as SlotData; // SlotData — массив из 4 картинок
+    });
+  };
+
+  const images = useMemo(() => {
+    if (prizes) {
+      return createInitData(prizes);
+    }
+  }, [prizes]);
+
   const centerIndex = Math.floor(VISIBLE_SLOTS / 2);
 
   const startSpin = async () => {
     if (spinning) return;
-
+    if (!images) return null;
+    const matrix = createRows(images, 4, 9);
+    setInitSlot(matrix);
     const res = await getResultGame({
       setError,
       setIsLoading,
@@ -98,49 +112,53 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
     });
   };
 
-  const createInitData = (prizes: Prize[]): SlotData[] => {
-    return prizes.map((p) => {
-      // picture содержит строки с 4 картинками через запятую
-      const urls = p.picture.split(',').map((url) => `${imgApi}${url}`);
-
-      return urls as SlotData; // SlotData — массив из 4 картинок
-    });
-  };
+  function shuffleArray<T>(array: T[] | undefined): T[] | null {
+    if (array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    } else {
+      return null;
+    }
+  }
 
   function createRows(
-    images: string[],
+    images: SlotData[] | undefined,
     imagesPerRow: number,
     rowCount: number,
-  ): string[][] {
-    const result: string[][] = [];
+  ): SlotData[] | undefined {
+    const shuffled = shuffleArray<SlotData>(images);
 
-    for (let i = 0; i < rowCount; i++) {
-      const row: string[] = [];
-      for (let j = 0; j < imagesPerRow; j++) {
-        // берем картинку по индексу с циклом по массиву
-        const index = (i * imagesPerRow + j) % images.length;
-        row.push(...images[index]);
+    const result: SlotData[] = [];
+
+    if (shuffled) {
+      for (let i = 0; i < rowCount; i++) {
+        const row: SlotData[] = [];
+        for (let j = 0; j < imagesPerRow; j++) {
+          const index = (i * imagesPerRow + j) % shuffled.length;
+          const res = shuffled[index];
+          row.push(res);
+        }
+        // @ts-ignore
+        result.push(row);
       }
-      result.push(row);
-    }
 
-    return result;
+      return result;
+    }
   }
 
   useEffect(() => {
-    console.log(prizes);
     if (prizes) {
-      const images = createInitData(prizes);
       const matrix = createRows(images, 4, 9);
-      console.log(matrix);
-      setInitSlot(matrix);
-      setSlots(matrix);
+      if (matrix) {
+        setInitSlot(matrix);
+        setSlots(matrix);
+      }
     }
   }, [prizes]);
-
-  useEffect(() => {
-    console.log('slots', slots);
-  }, [slots]);
 
   const repeatedSlots = Array.from({ length: SPIN_ROUNDS }).flatMap(
     () => slots,
@@ -155,7 +173,7 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
       }}
     >
       {repeatedSlots?.map((slot, idx) => {
-        if (!slot) return null; // если slot нет — пропускаем
+        if (!slot) return null;
         return (
           <div
             key={`${idx}-${columnIndex}`}
@@ -165,7 +183,11 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
               lineHeight: SLOT_HEIGHT + 'px',
             }}
           >
-            <img src={slot[columnIndex]} alt={`slot-${columnIndex}`} />
+            <img
+              className={cls.img}
+              src={slot[columnIndex]}
+              alt={`slot-${columnIndex}`}
+            />
           </div>
         );
       })}
@@ -223,7 +245,7 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
         </div>
       </div>
 
-      <RouletteFooter onClick={startSpin} disabled={spinning} />
+      <RouletteFooter onClick={startSpin} disabled={spinning || isLoading} />
 
       {/* Показываем только модал проигрыша */}
       <ModalGameLose open={open} onClose={() => setOpen(false)} />
