@@ -1,23 +1,22 @@
+import { Prize } from '@/entities/prizes';
 import { VerticalSlot } from '../VerticalSlot/VerticalSlot';
 
-import cls from './RouletteGame.module.scss';
-
-type SlotData = [string, string, string, 'win' | 'lose'];
-
-// const allSlots: SlotData[] = [
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img1, img1, img1, 'lose'],
-//   [img2, img2, img2, 'win'],
-//   [img1, img1, img1, 'lose'],
-// ];
-
-function RouletteGame() {
-  return <VerticalSlot />;
+interface RouletteGameProps {
+  error: string | null;
+  isLoading: boolean;
+  prizes: Prize[] | null;
+  refetch: () => void;
 }
-export { RouletteGame };
+
+export const RouletteGame = (props: RouletteGameProps) => {
+  const { error, isLoading, prizes, refetch } = props;
+
+  return (
+    <VerticalSlot
+      errorPrizes={error}
+      isLoadingPrizes={isLoading}
+      prizes={prizes}
+      refetchPrizes={refetch}
+    />
+  );
+};

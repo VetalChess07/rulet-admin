@@ -3,12 +3,20 @@ import { PrizesList } from '../PrizesList/PrizesList';
 
 import cls from './Prizes.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { useGetPrizes } from '../../model/lib/hook/useGetPrizes';
 
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
+import { Prize } from '../../model/types/prizes';
 
-export const Prizes = () => {
-  const { error, isLoading, prizes, refetch } = useGetPrizes();
+interface PrizesProps {
+  error: string | null;
+  isLoading: boolean;
+  prizes: Prize[] | null;
+  refetch: () => void;
+}
+
+export const Prizes = (props: PrizesProps) => {
+  const { error, isLoading, prizes, refetch } = props;
+
   if (isLoading)
     return (
       <div className={classNames(cls.laoder, {}, ['container'])}>

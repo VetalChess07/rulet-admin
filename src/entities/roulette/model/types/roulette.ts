@@ -1,4 +1,4 @@
-export type SlotData = [string, string, string, 'win' | 'lose'];
+export type SlotData = [string, string, string, string];
 
 export interface Game {
   id: number;
