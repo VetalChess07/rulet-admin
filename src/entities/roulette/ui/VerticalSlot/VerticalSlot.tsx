@@ -18,17 +18,17 @@ const SLOT_HEIGHT = 73;
 const VISIBLE_SLOTS = 3;
 const SPIN_ROUNDS = 3;
 
-const initData = [
-  [img1, img1, img1, img1],
-  [img1, img1, img1, img1],
-  [img1, img1, img1, img1],
-  [img1, img1, img1, img1],
-  [img1, img1, img1, img1],
-  [img1, img1, img1, img1],
-  [img1, img1, img1, img1],
-  ['img1', 'img1', 'img1', 'img1'],
-  [img1, img1, img1, img2],
-];
+// const initData = [
+//   [img1, img1, img1, img1],
+//   [img1, img1, img1, img1],
+//   [img1, img1, img1, img1],
+//   [img1, img1, img1, img1],
+//   [img1, img1, img1, img1],
+//   [img1, img1, img1, img1],
+//   [img1, img1, img1, img1],
+//   ['img1', 'img1', 'img1', 'img1'],
+//   [img1, img1, img1, img2],
+// ];
 
 interface VerticalSlotProps {
   errorPrizes: string | null;
@@ -45,6 +45,8 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
   const [offset, setOffset] = useState(0);
   const [transition, setTransition] = useState('');
 
+  const [initSlot, setInitSlot] = useState();
+
   const [error, setError] = useState<string | null>(null);
   const [slots, setSlots] = useState<SlotData[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -60,16 +62,16 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
     });
 
     const newSlot = res?.prizes?.map((data) => data.picture) ?? [
-      'https://promo.donatov.net/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
-      'https://promo.donatov.net/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
-      'https://promo.donatov.net/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
-      'https://promo.donatov.net/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
+      'h',
+      'httpsfield_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
+      'https://promo.donatov.et/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
+      'https://promo.donaov.net/field_of_luck_image/bcf8dc03-61a1-41f2-8dba-7928b66250d9.png',
     ];
 
     const newData = [
-      ...initData.slice(0, initData.length - 1),
+      ...initSlot.slice(0, initSlot.length - 1),
       newSlot as SlotData,
-      initData[initData.length - 1],
+      initSlot[initSlot.length - 1],
     ];
     setSlots(newData);
 
@@ -131,7 +133,7 @@ export const VerticalSlot = (props: VerticalSlotProps) => {
       const images = createInitData(prizes);
       const matrix = createRows(images, 4, 9);
       console.log(matrix);
-
+      setInitSlot(matrix);
       setSlots(matrix);
     }
   }, [prizes]);
