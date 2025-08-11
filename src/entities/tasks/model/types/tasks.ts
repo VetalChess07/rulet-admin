@@ -14,3 +14,7 @@ export interface Task {
   createdAt: string;
   updatedAt: string;
 }
+
+export interface TaskNoAuth {
+  result: Task[];
+}

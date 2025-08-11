@@ -15,12 +15,10 @@ export const getAllEvents = async ({
   setAllEvents,
 }: GetAllPrizesParams) => {
   try {
-    // const res = await api.get<DailyBonuses[]>('/events/get_all');
-
     const userInfo = localStorage.getItem(TG_USER);
     const path = userInfo ? '/events_users/get_all' : '/events/get_all';
 
-    const res = await api.get<DailyBonuses[]>(path, {
+    const res = await api.get<DailyBonuses[]>(`api_field_of_luck${path}`, {
       params: {
         user_info: userInfo,
       },

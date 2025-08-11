@@ -10,44 +10,36 @@ import cls from './TasksListItemCompleted.module.scss';
 
 interface TasksListItemCompletedProps {
   task: Task;
-  refetch: () => void;
+  handleTask: (api: string, id: number) => void;
+  isloading: boolean;
 }
 
 export const TasksListItemCompleted = (props: TasksListItemCompletedProps) => {
-  const { task, refetch } = props;
+  const { task, handleTask, isloading } = props;
 
   const titleWords = task.name.split(' ');
   const titleHalf = Math.ceil(titleWords.length / 2);
   const title = titleWords.slice(0, titleHalf).join(' ');
   const titleActive = titleWords.slice(titleHalf).join(' ');
 
-  const taskWords = task.description.split(' ');
-  const taskHalf = Math.ceil(titleWords.length / 2);
-  const taskText = taskWords.slice(0, taskHalf).join(' ');
-  const taskTextActive = taskWords.slice(taskHalf).join(' ');
-
-  const goToTask = () => {
-    console.log(task.api);
-  };
-
   return (
-    <div className={cls.TasksListItemCompleted} onClick={refetch}>
+    <div className={cls.TasksListItemCompleted}>
       <div className={cls.header}>
         <Typography className={cls.title} variant="subtitle2">
           <span>{title}</span>
           <span className={cls.accent}> {titleActive}</span>
         </Typography>
 
-        {/* <Typography className={cls.task} variant="body1">
-          <span>{taskText}</span>
-          <span className={cls.accent}> {taskTextActive}</span>
-        </Typography> */}
         <Typography variant="body1">{task.description}</Typography>
       </div>
       <IconTicketActive className={cls.IconTicketActive} />
 
       <div className={cls.item}>
-        <Button onClick={goToTask} className={cls.btn}>
+        <Button
+          disabled={isloading}
+          onClick={() => handleTask(task.api, task.id)}
+          className={cls.btn}
+        >
           Сделано
         </Button>
         <img className={cls.money} src={ImgMoney} alt="приз" />

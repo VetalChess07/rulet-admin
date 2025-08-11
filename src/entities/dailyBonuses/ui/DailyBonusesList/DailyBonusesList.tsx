@@ -25,8 +25,6 @@ export const DailyBonusesList = () => {
   };
   const isAuth = localStorage.getItem(TG_USER);
 
-  console.log('allEvents', allEvents);
-
   if (isLoading || isLoadingCheck)
     return (
       <div className={cls.loader}>

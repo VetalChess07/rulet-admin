@@ -7,6 +7,39 @@
   display: flex;
   align-items: center;
 
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent; // высота стрелки
+    border-bottom: 12px solid transparent;
+    z-index: 2;
+    transform: rotate(180deg);
+  }
+
+  &::before {
+    left: 0;
+    border-right: 22px solid var(--primary-bg);
+  }
+
+  &::after {
+    right: 0;
+    border-left: 22px solid var(--primary-bg); // цвет стрелки
+  }
+
+  @media (max-width: 580px) {
+    &::before {
+      border-right: 6px solid var(--primary-bg);
+    }
+
+    &::after {
+      border-left: 6px solid var(--primary-bg);
+    }
+  }
+
   .glowInner {
     height: 219px;
     width: 100%;

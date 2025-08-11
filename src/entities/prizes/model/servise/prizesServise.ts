@@ -14,7 +14,7 @@ export const getAllPrizes = async ({
   setPrizes,
 }: GetAllPrizesParams) => {
   try {
-    const res = await api.get<Prize[]>('/prizes/get_all');
+    const res = await api.get<Prize[]>('api_field_of_luck/prizes/get_all');
     setIsLoading(true);
     setError(null);
     setPrizes(res.data);

@@ -22,11 +22,14 @@ export const getAttemp = async ({
     setIsLoading(true);
     setError(null);
 
-    const res = await api.get<GetResultAttempResponse>('/users/get_attempt', {
-      params: {
-        user_info: localStorage.getItem(TG_USER),
+    const res = await api.get<GetResultAttempResponse>(
+      'api_field_of_luck/users/get_attempt',
+      {
+        params: {
+          user_info: localStorage.getItem(TG_USER),
+        },
       },
-    });
+    );
 
     setAttemp(res.data.attempt);
     return res.data;

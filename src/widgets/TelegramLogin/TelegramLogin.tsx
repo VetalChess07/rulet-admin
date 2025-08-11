@@ -34,6 +34,7 @@ export const TelegramLogin = () => {
       console.log('TG user data:', userData);
       localStorage.setItem('tgUser', JSON.stringify(userData));
       setUser(userData);
+      window.location.reload();
     };
 
     script.setAttribute('data-onauth', 'onTelegramAuth(user)');
@@ -50,6 +51,7 @@ export const TelegramLogin = () => {
   const handleLogout = () => {
     localStorage.removeItem('tgUser');
     setUser(null);
+    window.location.reload();
   };
 
   console.log(user);
