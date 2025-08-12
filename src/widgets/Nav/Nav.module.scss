@@ -1,13 +1,15 @@
 .Nav {
-  width: 100%;
-  max-width: var(--container-width);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
-  .logoGame {
-    @media (max-width: 780px) {
-      display: none;
+  background: var(--secondary-bg);
+  padding: 12px;
+  width: fit-content;
+  .list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    .link {
     }
   }
 }

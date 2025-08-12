@@ -1,3 +1,10 @@
-.DailyBonuses {
-  margin-top: 44px;
+.Prizes {
+  width: 100%;
+  overflow: auto;
+}
+.loader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

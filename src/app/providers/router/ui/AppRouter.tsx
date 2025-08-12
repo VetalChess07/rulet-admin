@@ -4,7 +4,7 @@ import { Routes, Route, RouteObject } from 'react-router-dom';
 import Layout from '../../layout/Layout';
 import { CircularProgress } from '@mui/material';
 
-import { routeConfig } from '@shared/config/routeConfig/routeConfig';
+import { routeConfig } from '@/shared/config/routeConfig/model/const/routeConfig';
 
 const AppRouter: FC = () => {
   const renderWithWrapper = useCallback((route: RouteObject) => {

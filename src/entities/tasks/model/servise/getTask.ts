@@ -17,14 +17,7 @@ export const getTask = async ({
   setTasks,
 }: GetTaskParams) => {
   try {
-    const userInfo = localStorage.getItem(TG_USER);
-    const path = userInfo ? '/quests_users/get_all' : '/quests/get_all';
-
-    const res = await api.get<Task[]>(`api_field_of_luck${path}`, {
-      params: {
-        user_info: userInfo,
-      },
-    });
+    const res = await api.get<Task[]>(`api_field_of_luck/quests/get_all`, {});
     setIsLoading(true);
     setError(null);
     setTasks(res.data);

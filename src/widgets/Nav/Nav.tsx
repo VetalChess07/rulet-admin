@@ -1,8 +1,8 @@
-import { LogoGame } from '@/widgets/LogoGame/LogoGame';
-import { Logo } from '@/widgets/Logo/Logo';
-
+import { Box } from '@mui/material';
 import cls from './Nav.module.scss';
-import { TelegramLogin } from '../TelegramLogin/TelegramLogin';
+
+import { navRoutes } from '@/shared/config/routeConfig';
+import { Link } from 'react-router-dom';
 
 interface NavProps {
   isTgWidget?: boolean;
@@ -12,11 +12,19 @@ export const Nav = (props: NavProps) => {
   const { isTgWidget } = props;
 
   return (
-    <div className={cls.Nav}>
-      <Logo />
-      <LogoGame className={cls.logoGame} />
-
-      {isTgWidget && <TelegramLogin />}
-    </div>
+    <Box
+      component="aside"
+      display="flex"
+      flexDirection="column"
+      className={cls.Nav}
+    >
+      <ul className={cls.list}>
+        {navRoutes.map((route) => (
+          <Link className={cls.link} to={route.path} key={route.label}>
+            {route.label}
+          </Link>
+        ))}
+      </ul>
+    </Box>
   );
 };

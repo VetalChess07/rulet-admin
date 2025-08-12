@@ -5,12 +5,11 @@ export enum DailyBonusesStatus {
 }
 
 export interface DailyBonuses {
-  event: {
-    id: number;
-    picture: string;
-    date_event: string;
-  };
-  visible: DailyBonusesStatus;
+  createdAt: string;
+  date_event: string;
+  id: number;
+  picture: string;
+  updatedAt: string;
 }
 
 export interface DailyBonusesIsNoneAuth {

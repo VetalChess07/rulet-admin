@@ -3,4 +3,8 @@ export interface Prize {
   name: string;
   picture: string;
   description: string;
+  type?: string;
+  procent?: number;
+  createdAt: string;
+  updatedAt: string;
 }

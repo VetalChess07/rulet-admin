@@ -1,9 +1,9 @@
 .Header {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-
+  gap: 40px;
   padding-top: var(--padding-lg);
   padding-bottom: var(--padding-lg);
   padding-right: var(--padding-sm);
