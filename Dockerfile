@@ -13,7 +13,6 @@ RUN npm install
 # Копируем остальные файлы
 COPY . .
 
-# Аргументы для переменных среды (опционально, если нужно передавать при сборке)
 ARG VITE_HOST
 ARG VITE_TG_BOT_NAME
 ARG VITE_DATA_AUTH_URL
