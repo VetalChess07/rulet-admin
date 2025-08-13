@@ -29,8 +29,6 @@ ENV VITE_DOMEN=$VITE_DOMEN
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_API_IMAGE_URL=$VITE_API_IMAGE_URL
 
-# Порт Vite development server
 EXPOSE 5174
-
 
 CMD ["npm", "run", "dev"]
