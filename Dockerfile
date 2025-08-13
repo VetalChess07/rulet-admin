@@ -32,5 +32,5 @@ ENV VITE_API_IMAGE_URL=$VITE_API_IMAGE_URL
 # Порт Vite development server
 EXPOSE 5174
 
-# Запуск приложения
+
 CMD ["npm", "run", "dev"]
