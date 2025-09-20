@@ -60,4 +60,108 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
       },
     },
   },
+  MuiSelect: {
+    styleOverrides: {
+      root: {
+        fontSize: '1rem',
+        fontWeight: 400,
+
+        borderRadius: '5px',
+        color: 'var(red)',
+        border: 'none',
+        background:
+          'linear-gradient(to bottom, rgba(90, 161, 239, 1), rgba(72, 117, 185, 1))',
+
+        '&:hover': {
+          borderColor: 'var(--accent-color)',
+        },
+        '&.Mui-focused': {
+          borderColor: 'var(--accent-color)',
+        },
+        '&.Mui-disabled': {
+          backgroundColor: 'var(--primary-text-color)',
+          color: 'var(--primary-text-color)',
+          borderColor: 'var(--primary-text-color)',
+        },
+      },
+      select: {
+        padding: '4px 8px',
+      },
+      icon: {
+        color: 'var(--primary-color)',
+      },
+    },
+  },
+  MuiSwitch: {
+    styleOverrides: {
+      root: {
+        width: 60,
+        height: 28,
+        padding: 0,
+        display: 'flex',
+        alignItems: 'center',
+      },
+      switchBase: {
+        padding: 2,
+        transition: 'all .3s ease',
+        '&.Mui-checked': {
+          transform: 'translateX(30px)',
+          color: '#fff',
+          '& + .MuiSwitch-track': {
+            background:
+              'linear-gradient(to bottom, rgba(90, 161, 239, 1), rgba(72, 117, 185, 1))',
+            opacity: 1,
+            border: 0,
+          },
+        },
+        '&.Mui-disabled + .MuiSwitch-track': {
+          opacity: 0.3,
+        },
+        '&.Mui-disabled .MuiSwitch-thumb': {
+          background:
+            'linear-gradient(to bottom, rgba(90, 161, 239, 1), rgba(72, 117, 185, 1))',
+        },
+      },
+      thumb: {
+        width: 24,
+        height: 24,
+        borderRadius: '50%',
+        backgroundColor: '#fff',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+      },
+      track: {
+        borderRadius: 34 / 2,
+        backgroundColor: 'var(--dark-gray)',
+        opacity: 1,
+        transition: 'background-color 0.3s',
+      },
+    },
+  },
+  MuiMenu: {
+    styleOverrides: {
+      paper: {
+        borderRadius: '4px',
+        background:
+          'linear-gradient(to bottom, rgba(90, 161, 239, 0.95), rgba(72, 117, 185, 0.95))',
+        color: '#fff',
+        boxShadow: '0px 8px 24px rgba(0, 0, 0, 0.25)',
+        padding: '4px',
+      },
+      list: {
+        padding: 0,
+        '& .MuiMenuItem-root': {
+          fontSize: '1rem',
+          borderRadius: '4px',
+          margin: '2px 0',
+          transition: 'background 0.2s ease',
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255,0.15)',
+          },
+          '&.Mui-selected': {
+            backgroundColor: 'rgba(255,255,255,0.25)',
+          },
+        },
+      },
+    },
+  },
 };

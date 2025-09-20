@@ -7,6 +7,7 @@ import { ErrorBoundary } from './app/providers/ErrorBoundary';
 import '@app/styles/index.scss';
 import { LocalizationProvider } from './app/providers/localizationProvider';
 import { SnackbarProvider } from './shared/ui/snackbar/Snackbar';
+import { StoreProvider } from './app/providers/storeProvider';
 
 function App() {
   return (
@@ -15,7 +16,9 @@ function App() {
         <ErrorBoundary>
           <LocalizationProvider>
             <SnackbarProvider>
-              <AppRouter />
+              <StoreProvider>
+                <AppRouter />
+              </StoreProvider>
             </SnackbarProvider>
           </LocalizationProvider>
         </ErrorBoundary>

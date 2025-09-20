@@ -54,8 +54,6 @@ export const TelegramLogin = () => {
     window.location.reload();
   };
 
-  console.log(user);
-
   return (
     <div className={cls.TelegramLogin}>
       {user ? (

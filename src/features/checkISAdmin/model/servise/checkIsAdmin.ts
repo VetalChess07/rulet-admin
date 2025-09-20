@@ -16,7 +16,7 @@ export const checkIsAdmin = async ({
     setIsLoading(true);
     setError(null);
     const userInfoStr = localStorage.getItem(TG_USER);
-    const res = await api.post('api_field_of_luck/users/check_admin', {
+    const res = await api.post('users/check_admin', {
       user_info: userInfoStr,
     });
 

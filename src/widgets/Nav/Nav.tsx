@@ -2,14 +2,13 @@ import { Box } from '@mui/material';
 import cls from './Nav.module.scss';
 
 import { navRoutes } from '@/shared/config/routeConfig';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
+import { SelectTheme } from '../../entities/themes/ui/SelectTheme/SelectTheme';
+import { memo } from 'react';
 
-interface NavProps {
-  isTgWidget?: boolean;
-}
-
-export const Nav = (props: NavProps) => {
-  const { isTgWidget } = props;
+export const Nav = memo(() => {
+  const location = useLocation();
+  const search = location.search;
 
   return (
     <Box
@@ -19,12 +18,20 @@ export const Nav = (props: NavProps) => {
       className={cls.Nav}
     >
       <ul className={cls.list}>
+        <SelectTheme />
         {navRoutes.map((route) => (
-          <Link className={cls.link} to={route.path} key={route.label}>
-            {route.label}
-          </Link>
+          <NavLink
+            key={route.label}
+            to={`${route.path}${search}`}
+            className={({ isActive }) =>
+              `${cls.link} ${isActive ? cls.active : ''}`
+            }
+          >
+            {route.Icon}
+            <span>{route.label}</span>
+          </NavLink>
         ))}
       </ul>
     </Box>
   );
-};
+});

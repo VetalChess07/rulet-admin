@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { JSX, ReactNode } from 'react';
 
 export interface IRoute {
   path?: string;
@@ -14,4 +14,5 @@ export interface INavRoute {
   onlyAnonymous?: boolean;
   isAtribute?: Record<string, string>;
   attribute?: string;
+  Icon?: ReactNode;
 }

@@ -3,8 +3,9 @@ import { Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import cls from './Footer.module.scss';
+import { memo } from 'react';
 
-export const Footer = () => {
+export const Footer = memo(() => {
   return (
     <footer className={cls.Footer}>
       <div className={cls.item}>
@@ -26,4 +27,4 @@ export const Footer = () => {
       </div>
     </footer>
   );
-};
+});
