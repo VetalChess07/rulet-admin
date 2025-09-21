@@ -15,6 +15,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/redux/useAppDispatch';
 import { themeAction } from '../../model/slices/themes.slice';
 import { useSearchParams } from 'react-router-dom';
 import { saveCurrentTheme } from '@/shared/lib/setQueryParams';
+import { ModalSetGameStart } from '../ModalSetGameStart/ModalSetGameStart';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
@@ -38,12 +39,7 @@ const ThemesListItem = (props: ThemesListItemProps) => {
 
   const dispatch = useAppDispatch();
 
-  const [isActive, setIsActive] = useState(theme.start ?? false);
   const [isBannerLoaded, setIsBannerLoaded] = useState(true);
-
-  const handleSwitch = () => {
-    setIsActive((prev) => !prev);
-  };
 
   const currentThemeId = useAppSelector(getCurrentThemeId);
 
@@ -117,10 +113,9 @@ const ThemesListItem = (props: ThemesListItemProps) => {
               <Typography variant="body1" component="h4">
                 Статус игры:
               </Typography>
-              <Switch
-                stylesInner={{ width: 'auto' }}
-                checked={isActive}
-                onChange={handleSwitch}
+              <ModalSetGameStart
+                isStart={theme.start ?? false}
+                themeId={theme.id}
               />
             </div>
 

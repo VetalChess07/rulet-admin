@@ -82,7 +82,7 @@ const SelectTheme = memo(() => {
   if (isError || !data?.data) return <ErrorAlert sx={{ marginTop: '24px' }} />;
 
   return (
-    <FormControl fullWidth>
+    <FormControl sx={{ minWidth: '200px', maxWidth: '200px' }} fullWidth>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
