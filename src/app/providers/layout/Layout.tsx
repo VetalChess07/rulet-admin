@@ -27,13 +27,19 @@ const Layout: React.FC = () => {
     );
 
   return (
-    <Box display="flex" flexDirection="column" minHeight="100vh" width="100%">
+    <Box
+      className={cls.Layout}
+      display="flex"
+      flexDirection="column"
+      minHeight="100vh"
+      width="100%"
+    >
       {error && <ErrorAlert message={`${error}`} />}
-      <Header /> {/* Шапка сверху */}
+      <Header />
       <Box display="flex" flex={1} minHeight={0}>
         <Nav />
 
-        <Box component="main" flex={1} minWidth={0} py={2}>
+        <Box className={cls.main} component="main" flex={1} minWidth={0} py={2}>
           <Container maxWidth="lg">
             <Outlet />
           </Container>

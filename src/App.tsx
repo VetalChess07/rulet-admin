@@ -6,7 +6,7 @@ import { ErrorBoundary } from './app/providers/ErrorBoundary';
 
 import '@app/styles/index.scss';
 import { LocalizationProvider } from './app/providers/localizationProvider';
-import { SnackbarProvider } from './shared/ui/snackbar/Snackbar';
+import { SnackbarProvider } from './shared/ui/Snackbar/Snackbar';
 import { StoreProvider } from './app/providers/storeProvider';
 
 function App() {

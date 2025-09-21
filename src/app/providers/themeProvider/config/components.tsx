@@ -104,6 +104,8 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
       switchBase: {
         padding: 2,
         transition: 'all .3s ease',
+        background:
+          'linear-gradient(to bottom, rgba(90, 161, 239, 1), rgba(72, 117, 185, 1))',
         '&.Mui-checked': {
           transform: 'translateX(30px)',
           color: '#fff',
@@ -134,6 +136,7 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
         backgroundColor: 'var(--dark-gray)',
         opacity: 1,
         transition: 'background-color 0.3s',
+        background: 'var(--primary-text-color)',
       },
     },
   },

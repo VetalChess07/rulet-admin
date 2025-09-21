@@ -1,25 +1,32 @@
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 import { FormControl, SelectChangeEvent } from '@mui/material';
-import { Select } from '@/shared/ui/select/Select';
+import { Select } from '@/shared/ui/Select/Select';
 import { useGetAllThemeQuery } from '../../model/api/theme.api';
-import { Loader } from '@/shared/ui/loader/Loader';
+import { Loader } from '@/shared/ui/Loader/Loader';
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
 import { useAppDispatch } from '@/shared/lib/hooks/redux/useAppDispatch';
 import { themeAction } from '../../model/slices/themes.slice';
 import { useAppSelector } from '@/shared/lib/hooks/redux/useAppSelector';
-import { getAllThemes } from '../../model/selectors/theme.selectors';
+import {
+  getAllThemes,
+  getCurrentTheme,
+} from '../../model/selectors/theme.selectors';
 import { createOptinalSelect } from '@/shared/lib/createOptinalSelect';
 import { useSearchParams } from 'react-router-dom';
 import { handleSaveCurrentTheme } from '../../model/lib/handleSaveCurrentTheme';
+import { saveCurrentTheme } from '@/shared/lib/setQueryParams';
 
 const SelectTheme = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dispatch = useAppDispatch();
   const themes = useAppSelector(getAllThemes);
-  const initialThemeId = Number(searchParams.get('themeId')) || 0;
 
-  const [value, setValue] = useState<number>(initialThemeId);
+  const currentTheme = useAppSelector(getCurrentTheme);
+  console.log(currentTheme);
+
+  const initialThemeId =
+    currentTheme?.id ?? (Number(searchParams.get('themeId')) || 0);
 
   const { data, isLoading, isError } = useGetAllThemeQuery();
 
@@ -32,13 +39,16 @@ const SelectTheme = memo(() => {
   useEffect(() => {
     if (data?.data) {
       dispatch(themeAction.setThemes(data.data));
-      if (!value && data.data.length > 0) {
-        setValue(data.data[0].id);
-        searchParams.set('themeId', data.data[0].id.toString());
+      if (data.data.length > 0 && themes) {
         setSearchParams(searchParams);
 
-        dispatch(themeAction.setCurrentTheme(data.data[0]));
-        dispatch(themeAction.setCurrentThemeId(data.data[0].id));
+        const currentTheme = themes.find(
+          (theme) => theme.id === initialThemeId,
+        );
+        if (currentTheme) {
+          dispatch(themeAction.setCurrentTheme(currentTheme));
+          dispatch(themeAction.setCurrentThemeId(currentTheme.id));
+        }
       }
     }
   }, [data]);
@@ -50,11 +60,13 @@ const SelectTheme = memo(() => {
   const handleChange = useCallback(
     (event: SelectChangeEvent<string | number>) => {
       const selectedValue = Number(event.target.value);
-      setValue(selectedValue);
 
-      const newParams = new URLSearchParams(searchParams);
-      newParams.set('themeId', selectedValue.toString());
-      setSearchParams(newParams);
+      saveCurrentTheme({
+        searchParams,
+        setSearchParams,
+        value: selectedValue.toString(),
+        key: 'themeId',
+      });
 
       const currentTheme = themes?.find((theme) => theme.id === selectedValue);
 
@@ -76,7 +88,7 @@ const SelectTheme = memo(() => {
         id="demo-simple-select"
         onChange={handleChange}
         options={options}
-        value={value}
+        value={initialThemeId}
       />
     </FormControl>
   );

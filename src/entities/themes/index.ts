@@ -5,4 +5,4 @@ export type {
   TypeThemeGame,
 } from './model/types/theme.types';
 
-export { themeApi } from './model/api/theme.api';
+export { themeApi, useGetAllThemeQuery } from './model/api/theme.api';

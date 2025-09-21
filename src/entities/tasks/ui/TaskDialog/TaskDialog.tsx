@@ -9,9 +9,9 @@ import {
   TextField,
 } from '@mui/material';
 
-import { FileUploader } from '@/shared/ui/fileUploader/FileUploader';
+import { FileUploader } from '@/shared/ui/FileUploader/FileUploader';
 import { handleAddLogo } from '@/shared/lib/handleAddLogo';
-import { useSnackbar } from '@/shared/ui/snackbar/Snackbar';
+import { useSnackbar } from '@/shared/ui/Snackbar/Snackbar';
 
 import { Task } from '../../model/types/tasks';
 import { updateTask } from '@/features/tasks/model/updateTask/updateTask';

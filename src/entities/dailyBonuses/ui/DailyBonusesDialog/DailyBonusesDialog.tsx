@@ -8,12 +8,12 @@ import {
 } from '@mui/material';
 
 import { DailyBonuses } from '../../model/types/dailyBonuses';
-import { FileUploader } from '@/shared/ui/fileUploader/FileUploader';
+import { FileUploader } from '@/shared/ui/FileUploader/FileUploader';
 import { handleAddLogo } from '@/shared/lib/handleAddLogo';
-import { useSnackbar } from '@/shared/ui/snackbar/Snackbar';
+import { useSnackbar } from '@/shared/ui/Snackbar/Snackbar';
 
 import dayjs, { Dayjs } from 'dayjs';
-import { DatePicker } from '@/shared/ui/datePicker/DatePicker';
+import { DatePicker } from '@/shared/ui/DatePicker/DatePicker';
 
 import { updateDailyBonusEvent } from '@/features/dailyBonuses/model/service/updateDailyBonusEvent/updateDailyBonusEvent';
 
