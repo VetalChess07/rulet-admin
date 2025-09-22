@@ -13,8 +13,8 @@ import {
 } from '../../model/selectors/theme.selectors';
 import { createOptinalSelect } from '@/shared/lib/createOptinalSelect';
 import { useSearchParams } from 'react-router-dom';
-import { handleSaveCurrentTheme } from '../../model/lib/handleSaveCurrentTheme';
-import { saveCurrentTheme } from '@/shared/lib/setQueryParams';
+
+import { setQueryParams } from '@/shared/lib/setQueryParams';
 
 const SelectTheme = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,10 +23,9 @@ const SelectTheme = memo(() => {
   const themes = useAppSelector(getAllThemes);
 
   const currentTheme = useAppSelector(getCurrentTheme);
-  console.log(currentTheme);
+  const queryThemeId = Number(searchParams.get('themeId'));
 
-  const initialThemeId =
-    currentTheme?.id ?? (Number(searchParams.get('themeId')) || 0);
+  const initialThemeId = currentTheme?.id ?? queryThemeId;
 
   const { data, isLoading, isError } = useGetAllThemeQuery();
 
@@ -40,28 +39,41 @@ const SelectTheme = memo(() => {
     if (data?.data) {
       dispatch(themeAction.setThemes(data.data));
       if (data.data.length > 0 && themes) {
-        setSearchParams(searchParams);
-
         const currentTheme = themes.find(
           (theme) => theme.id === initialThemeId,
         );
+
         if (currentTheme) {
           dispatch(themeAction.setCurrentTheme(currentTheme));
           dispatch(themeAction.setCurrentThemeId(currentTheme.id));
+          setSearchParams(searchParams);
+        } else {
+          if (data?.data?.length !== 0) {
+            setQueryParams({
+              key: 'themeId',
+              searchParams,
+              setSearchParams,
+              value: `${data?.data[0]?.id}`,
+            });
+            dispatch(themeAction.setCurrentTheme(data?.data[0]));
+            dispatch(themeAction.setCurrentThemeId(data?.data[0].id));
+          } else {
+            searchParams.delete('themeId');
+          }
         }
       }
+      if (data.data.length === 0) {
+        dispatch(themeAction.clear());
+        dispatch(themeAction.setCurrentThemeClear());
+      }
     }
-  }, [data]);
-
-  useEffect(() => {
-    handleSaveCurrentTheme({ dispatch, initialThemeId, themes });
-  }, [themes]);
+  }, [data, themes]);
 
   const handleChange = useCallback(
     (event: SelectChangeEvent<string | number>) => {
       const selectedValue = Number(event.target.value);
 
-      saveCurrentTheme({
+      setQueryParams({
         searchParams,
         setSearchParams,
         value: selectedValue.toString(),
@@ -75,7 +87,7 @@ const SelectTheme = memo(() => {
         dispatch(themeAction.setCurrentThemeId(currentTheme.id));
       }
     },
-    [themes, searchParams, setSearchParams, dispatch],
+    [themes, searchParams, dispatch],
   );
 
   if (isLoading) return <Loader size={16} />;

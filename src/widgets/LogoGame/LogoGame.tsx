@@ -5,6 +5,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppSelector } from '@/shared/lib/hooks/redux/useAppSelector';
 import { getCurrentTheme } from '@/entities/themes/model/selectors/theme.selectors';
 import { memo } from 'react';
+import { Loader } from '@/shared/ui/Loader/Loader';
 
 const VITE_API_IMAGE_URL = import.meta.env.VITE_API_IMAGE_URL;
 
@@ -17,12 +18,22 @@ export const LogoGame = memo((props: LogoGameProps) => {
 
   const theme = useAppSelector(getCurrentTheme);
 
-  const path = `${VITE_API_IMAGE_URL}${theme?.logo}`;
+  console.log(theme);
+
+  const path = theme?.logo ? `${VITE_API_IMAGE_URL}${theme.logo}` : logoGame;
+
   return (
     <img
-      src={path ?? logoGame}
+      src={path}
       alt={theme?.name ?? 'game'}
       className={classNames(cls.LogoGame, {}, [className])}
+      onError={(e) => {
+        const target = e.currentTarget;
+        if (target.src !== logoGame) {
+          target.src = logoGame;
+        }
+      }}
+      onLoad={() => <Loader />}
     />
   );
 });

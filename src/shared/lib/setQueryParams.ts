@@ -1,18 +1,19 @@
 import { SetURLSearchParams } from 'react-router-dom';
 
-type SaveCurrentThemeParams = {
+type SetQueryParamsParams = {
   searchParams: URLSearchParams;
   setSearchParams: SetURLSearchParams;
   key: string;
   value: string;
 };
-export const saveCurrentTheme = ({
+export const setQueryParams = ({
   searchParams,
   setSearchParams,
   key,
   value,
-}: SaveCurrentThemeParams) => {
-  const newParams = new URLSearchParams(searchParams);
+}: SetQueryParamsParams) => {
+  const newParams = new URLSearchParams(searchParams.toString());
   newParams.set(key, value);
+  console.log(newParams);
   setSearchParams(newParams);
 };

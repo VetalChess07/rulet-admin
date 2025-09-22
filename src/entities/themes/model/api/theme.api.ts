@@ -39,11 +39,27 @@ export const themeApi = createApi({
         body: { user_info: userInfo, themeId },
       }),
     }),
+    deleteTheme: builder.mutation<
+      DefaulResponse<Theme[]>,
+      { themeId: number },
+      ApiError
+    >({
+      query: ({ themeId }) => ({
+        url: `themes/delete`,
+        method: 'POST',
+        body: { user_info: userInfo, themeId },
+      }),
+    }),
   }),
 });
+
+export type DeleteThemeMutationFn = ReturnType<
+  typeof useDeleteThemeMutation
+>[0];
 
 export const {
   useGetAllThemeQuery,
   useStartGameMutation,
   useStopGameMutation,
+  useDeleteThemeMutation,
 } = themeApi;

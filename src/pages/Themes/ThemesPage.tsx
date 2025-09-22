@@ -8,7 +8,7 @@ import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
 const ThemesPage = () => {
   const themes = useAppSelector(getAllThemes);
 
-  const { isLoading, isError, error } = useGetAllThemeQuery();
+  const { isLoading, isError, error, refetch } = useGetAllThemeQuery();
 
   if (isError)
     return (
@@ -17,7 +17,7 @@ const ThemesPage = () => {
 
   return (
     <>
-      <ThemesList isLoading={isLoading} themes={themes} />
+      <ThemesList isLoading={isLoading} themes={themes} refetch={refetch} />
     </>
   );
 };

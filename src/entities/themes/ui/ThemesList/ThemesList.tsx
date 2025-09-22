@@ -10,10 +10,11 @@ import { ThemeSkeleton } from '../ThemeSkeleton/ThemeSkeleton';
 interface ThemesListProps {
   themes: Theme[] | null;
   isLoading: boolean;
+  refetch: () => void;
 }
 
 const ThemesList = (props: ThemesListProps) => {
-  const { isLoading, themes } = props;
+  const { isLoading, themes, refetch } = props;
 
   if (themes?.length === 0 || themes === null)
     return <Empty message="У вас пока нет тем для розыгрышей" />;
@@ -25,7 +26,7 @@ const ThemesList = (props: ThemesListProps) => {
             <ThemeSkeleton key={index} />
           ))
         : themes.map((theme) => (
-            <ThemesListItem key={theme.id} theme={theme} />
+            <ThemesListItem key={theme.id} theme={theme} refetch={refetch} />
           ))}
     </div>
   );

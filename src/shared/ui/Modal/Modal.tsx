@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import Box from '@mui/material/Box';
 import ModalMUI from '@mui/material/Modal';
 import {
@@ -7,16 +9,18 @@ import {
   IconButton,
   SxProps,
   Typography,
+  TypographyVariant,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import type { ModalProps as ModalPropsMUI } from '@mui/material/Modal';
 import { Theme } from '@emotion/react';
-import React, { ReactNode } from 'react';
 import cls from './Modal.module.scss';
 
 interface ModalProps extends ModalPropsMUI {
   timeout?: number;
   sxContent?: SxProps<Theme>;
+  sxConfirm?: SxProps<Theme>;
+  sxHeaderTitle?: SxProps<Theme>;
   headerTitle?: string;
   onConfirm?: () => void;
   onClose?: () => void;
@@ -24,6 +28,7 @@ interface ModalProps extends ModalPropsMUI {
   footer?: ReactNode;
   confirmTextButton?: string;
   disabledFooter?: boolean;
+  headerTitleVariant?: TypographyVariant;
 }
 
 export const Modal = (props: ModalProps) => {
@@ -39,6 +44,9 @@ export const Modal = (props: ModalProps) => {
     footer,
     confirmTextButton,
     disabledFooter,
+    sxConfirm,
+    sxHeaderTitle,
+    headerTitleVariant = 'body1',
     ...other
   } = props;
 
@@ -57,7 +65,10 @@ export const Modal = (props: ModalProps) => {
             <>{header}</>
           ) : (
             <div className={cls.modalHeader}>
-              <Typography className={cls.headerTitle} variant="body1">
+              <Typography
+                sx={sxHeaderTitle ?? { fontSize: '1.5rem' }}
+                variant={headerTitleVariant}
+              >
                 {headerTitle ?? ''}
               </Typography>
               <IconButton
@@ -90,6 +101,7 @@ export const Modal = (props: ModalProps) => {
                     disabled={disabledFooter}
                     color="primary"
                     onClick={onConfirm}
+                    sx={sxConfirm ?? {}}
                   >
                     {confirmTextButton}
                   </Button>

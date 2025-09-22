@@ -2,38 +2,31 @@ import dayjs from 'dayjs';
 import { Typography } from '@mui/material';
 import { Theme } from '../../model/types/theme.types';
 
-import cls from './ThemesListItem.module.scss';
 import { classNames, Mods } from '@/shared/lib/classNames/classNames';
 import { useAppSelector } from '@/shared/lib/hooks/redux/useAppSelector';
 import { getCurrentThemeId } from '../../model/selectors/theme.selectors';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { MoreButton } from '@/shared/ui/MoreButton/MoreButton';
-import { Switch } from '@/shared/ui/Switch/Switch';
 import { useState } from 'react';
 import { SelectTypeTheme } from '../SelectTypeTheme/SelectTypeTheme';
 import { useAppDispatch } from '@/shared/lib/hooks/redux/useAppDispatch';
 import { themeAction } from '../../model/slices/themes.slice';
 import { useSearchParams } from 'react-router-dom';
-import { saveCurrentTheme } from '@/shared/lib/setQueryParams';
+import { setQueryParams } from '@/shared/lib/setQueryParams';
 import { ModalSetGameStart } from '../ModalSetGameStart/ModalSetGameStart';
+import { ModalApproveDeleteTheme } from '../ModalApproveDeleteTheme/ModalApproveDeleteTheme';
+
+import cls from './ThemesListItem.module.scss';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
 interface ThemesListItemProps {
   theme: Theme;
+  refetch: () => void;
 }
 
-const actions = [
-  { label: 'Редактировать', onClick: () => console.log('Редактировать') },
-  {
-    label: 'Удалить',
-    onClick: () => console.log('Удалить'),
-    styles: { color: 'var(--danger-color)' },
-  },
-];
-
 const ThemesListItem = (props: ThemesListItemProps) => {
-  const { theme } = props;
+  const { theme, refetch } = props;
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -42,6 +35,17 @@ const ThemesListItem = (props: ThemesListItemProps) => {
   const [isBannerLoaded, setIsBannerLoaded] = useState(true);
 
   const currentThemeId = useAppSelector(getCurrentThemeId);
+
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const themeActions = [
+    { label: 'Редактировать', onClick: () => console.log('Редактировать') },
+    {
+      label: 'Удалить',
+      onClick: () => setOpenDelete(true),
+      styles: { color: 'var(--danger-color)' },
+    },
+  ];
 
   const startDate = theme.themes_start_date
     ? dayjs(theme.themes_start_date).format('DD.MM.YYYY')
@@ -54,11 +58,11 @@ const ThemesListItem = (props: ThemesListItemProps) => {
     [cls.activeTheme]: currentThemeId === theme.id,
   };
 
-  const setActiveTheme = (themeId: number) => {
+  const handleActiveTheme = (themeId: number) => {
     dispatch(themeAction.setCurrentTheme(theme));
     dispatch(themeAction.setCurrentThemeId(themeId));
 
-    saveCurrentTheme({
+    setQueryParams({
       searchParams,
       setSearchParams,
       value: `${themeId}`,
@@ -68,7 +72,7 @@ const ThemesListItem = (props: ThemesListItemProps) => {
 
   return (
     <div
-      onDoubleClick={() => setActiveTheme(theme.id)}
+      onDoubleClick={() => handleActiveTheme(theme.id)}
       className={classNames(cls.ThemesListItem, mods)}
     >
       {theme.banner && isBannerLoaded && (
@@ -89,7 +93,7 @@ const ThemesListItem = (props: ThemesListItemProps) => {
           </Typography>
         </div>
 
-        <MoreButton actions={actions} classNameButton={cls.moreBtn} />
+        <MoreButton actions={themeActions} classNameButton={cls.moreBtn} />
       </div>
       <div className={cls.body}>
         <Typography variant="body1" component="h4">
@@ -154,6 +158,13 @@ const ThemesListItem = (props: ThemesListItemProps) => {
           </Typography>
         </div>
       </div>
+      <ModalApproveDeleteTheme
+        setOpen={setOpenDelete}
+        open={openDelete}
+        themeId={theme.id}
+        themeName={theme.name}
+        refetch={refetch}
+      />
     </div>
   );
 };

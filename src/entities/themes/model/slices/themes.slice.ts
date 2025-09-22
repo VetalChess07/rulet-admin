@@ -20,6 +20,17 @@ export const themeState = createSlice({
     setCurrentThemeId: (state, action: PayloadAction<number>) => {
       state.currentThemeId = action.payload;
     },
+    setCurrentThemeClear: (state) => {
+      state.currentTheme = null;
+    },
+    clear: (state) => {
+      state = {
+        themes: null,
+        currentTheme: null,
+        currentThemeId: null,
+      };
+      console.log(state);
+    },
   },
 });
 

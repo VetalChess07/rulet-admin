@@ -1,18 +1,19 @@
 import { FC, Suspense, useCallback } from 'react';
 import { Routes, Route, RouteObject } from 'react-router-dom';
-// эт чуть позже поправлю
 import Layout from '../../layout/Layout';
-import { CircularProgress } from '@mui/material';
+
+import cls from './AppRouter.module.scss';
 
 import { routeConfig } from '@/shared/config/routeConfig/model/const/routeConfig';
+import { Loader } from '@/shared/ui/Loader/Loader';
 
 const AppRouter: FC = () => {
   const renderWithWrapper = useCallback((route: RouteObject) => {
     const element = (
       <Suspense
         fallback={
-          <div className="w-full flex items-center justify-center h-[100vh]">
-            <CircularProgress />
+          <div className={cls.AppRouter}>
+            <Loader />
           </div>
         }
       >

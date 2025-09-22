@@ -22,7 +22,9 @@ const Empty = (props: EmptyProps) => {
         alignItems: 'center',
       }}
     >
-      <Typography>{message ?? 'Нет данных'}</Typography>
+      <Typography variant="h4" component="span">
+        {message ?? 'Нет данных'}
+      </Typography>
     </div>
   );
 };

@@ -45,7 +45,7 @@ const Layout: React.FC = () => {
           </Container>
         </Box>
       </Box>
-      <Footer /> {/* Подвал внизу */}
+      <Footer />
     </Box>
   );
 };
