@@ -64,7 +64,8 @@ const SelectTheme = memo(() => {
       }
       if (data.data.length === 0) {
         dispatch(themeAction.clear());
-        dispatch(themeAction.setCurrentThemeClear());
+        searchParams.delete('themeId');
+        setSearchParams(searchParams);
       }
     }
   }, [data, themes]);

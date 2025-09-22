@@ -23,14 +23,11 @@ export const themeState = createSlice({
     setCurrentThemeClear: (state) => {
       state.currentTheme = null;
     },
-    clear: (state) => {
-      state = {
-        themes: null,
-        currentTheme: null,
-        currentThemeId: null,
-      };
-      console.log(state);
-    },
+    clear: () => ({
+      themes: null,
+      currentTheme: null,
+      currentThemeId: null,
+    }),
   },
 });
 
