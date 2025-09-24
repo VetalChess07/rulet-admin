@@ -13,10 +13,11 @@ import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
 interface ModalSetGameStartProps {
   isStart: boolean;
   themeId: number;
+  refetch: () => void;
 }
 
 const ModalSetGameStart = (props: ModalSetGameStartProps) => {
-  const { isStart, themeId } = props;
+  const { isStart, themeId, refetch } = props;
 
   const [
     onStartGame,
@@ -37,16 +38,16 @@ const ModalSetGameStart = (props: ModalSetGameStartProps) => {
   const handleConfirm = useCallback(() => {
     if (isActive) {
       onStopGame({ themeId: themeId ?? 1 });
+      refetch();
     } else {
       onStartGame({ themeId: themeId ?? 1 });
+      refetch();
     }
     if (!isErrorStartGame || !isErrorStopGame) {
       setIsActive((prev) => !prev);
       setIsModalOpen(false);
     }
-
-    // if (onConfirm) onConfirm(!isActive);
-  }, [isActive]);
+  }, [isActive, isStart]);
 
   const handleCancel = useCallback(() => {
     setIsModalOpen(false);
@@ -56,8 +57,9 @@ const ModalSetGameStart = (props: ModalSetGameStartProps) => {
     <>
       <Switch
         stylesInner={{ width: 'auto' }}
-        checked={isActive}
-        onChange={handleSwitch}
+        checked={isStart}
+        onClick={handleSwitch}
+        // onChange={handleSwitch}
       />
 
       <Modal
@@ -73,7 +75,7 @@ const ModalSetGameStart = (props: ModalSetGameStartProps) => {
             (isErrorStopGame && <ErrorAlert sx={{ marginTop: '24px' }} />)}
           <Typography className={cls.title} variant="body1">
             Вы действительно хотитет <br /> сменить статус игры на
-            {isActive ? ' Остановленую' : ' Начавшуюся'}
+            {isStart ? ' Остановленую' : ' Начавшуюся'}
           </Typography>
         </div>
       </Modal>

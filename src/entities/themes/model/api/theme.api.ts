@@ -11,12 +11,7 @@ import { userInfo } from '@/shared/conts/userInfo';
 
 export const themeApi = createApi({
   reducerPath: 'themeApi',
-  baseQuery: baseQuery as BaseQueryFn<
-    string | FetchArgs,
-    unknown,
-    ApiError,
-    {}
-  >,
+  baseQuery: baseQuery as BaseQueryFn<string | FetchArgs, unknown, ApiError>,
   tagTypes: ['Theme'],
   endpoints: (builder) => ({
     getAllTheme: builder.query<DefaulResponse<Theme[]>, void, ApiError>({
@@ -50,6 +45,25 @@ export const themeApi = createApi({
         body: { user_info: userInfo, themeId },
       }),
     }),
+
+    createTheme: builder.mutation<void, FormData>({
+      query: (formData) => ({
+        url: 'themes/create',
+        method: 'POST',
+        body: formData,
+        extra: { isFormData: true },
+      }),
+      invalidatesTags: ['Theme'],
+    }),
+    updateTheme: builder.mutation<void, FormData>({
+      query: (formData) => ({
+        url: 'themes/update',
+        method: 'POST',
+        body: formData,
+        extra: { isFormData: true },
+      }),
+      invalidatesTags: ['Theme'],
+    }),
   }),
 });
 
@@ -57,9 +71,15 @@ export type DeleteThemeMutationFn = ReturnType<
   typeof useDeleteThemeMutation
 >[0];
 
+export type CreateThemeMutationFn = ReturnType<
+  typeof useCreateThemeMutation
+>[0];
+
 export const {
   useGetAllThemeQuery,
   useStartGameMutation,
   useStopGameMutation,
   useDeleteThemeMutation,
+  useCreateThemeMutation,
+  useUpdateThemeMutation,
 } = themeApi;

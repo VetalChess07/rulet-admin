@@ -4,6 +4,9 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 import { Theme } from '@emotion/react';
 
+import cls from './fileUploader.module.scss';
+import { classNames } from '@/shared/lib/classNames/classNames';
+
 interface FileUploaderProps {
   accept?: string;
   label?: string;
@@ -32,7 +35,6 @@ export const FileUploader = memo((props: FileUploaderProps) => {
     sxButton = {},
     sxTitle = {},
     titleVariant = 'body2',
-    classNameButton = '',
     classNameTitle = '',
     defaultImageUrl,
     defaultImageAlt = '',
@@ -55,15 +57,6 @@ export const FileUploader = memo((props: FileUploaderProps) => {
     }
   };
 
-  const handleRemove = () => {
-    setFile(null);
-    setPreview('');
-    onChange?.(null);
-    if (inputRef.current) {
-      inputRef.current.value = '';
-    }
-  };
-
   useEffect(() => {
     if (!file) {
       setPreview('');
@@ -80,12 +73,13 @@ export const FileUploader = memo((props: FileUploaderProps) => {
 
   return (
     <Box
+      className={cls.FileUploader}
       sx={{ display: 'flex', flexDirection: 'column', gap: '8px', ...sxInner }}
     >
       {title && (
         <Typography
           sx={sxTitle}
-          className={classNameTitle}
+          className={classNames(cls.classNameTitle, {}, [classNameTitle])}
           component="span"
           textAlign="left"
           variant={titleVariant}
@@ -101,7 +95,7 @@ export const FileUploader = memo((props: FileUploaderProps) => {
         onChange={handleFileChange}
       />
       <Button
-        className={classNameButton}
+        className={classNames(cls.classNameButton, {}, [cls.button])}
         variant="contained"
         startIcon={IconButton}
         sx={{ ...sxButton }}

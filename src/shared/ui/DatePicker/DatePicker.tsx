@@ -38,7 +38,6 @@ export const DatePicker = ({
         <Typography
           sx={{
             fontSize: '1rem',
-
             display: 'inline-block',
             ...sxLabel,
           }}
@@ -55,6 +54,16 @@ export const DatePicker = ({
           value={value}
           onChange={onChange}
           format={format}
+          slotProps={{
+            textField: {
+              InputProps: {
+                sx: {
+                  color: 'red',
+                  fontWeight: 'bold', // жирный текст
+                },
+              },
+            },
+          }}
           {...rest}
         />
       </LocalizationProvider>

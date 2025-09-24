@@ -15,6 +15,7 @@ import { createOptinalSelect } from '@/shared/lib/createOptinalSelect';
 import { useSearchParams } from 'react-router-dom';
 
 import { setQueryParams } from '@/shared/lib/setQueryParams';
+import { OptionsSelect } from '@/shared/types/ui';
 
 const SelectTheme = memo(() => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +30,7 @@ const SelectTheme = memo(() => {
 
   const { data, isLoading, isError } = useGetAllThemeQuery();
 
-  const options = useMemo(() => {
+  const options: OptionsSelect[] = useMemo(() => {
     const themesIds = themes?.map((theme) => theme.id) || [];
     const themesLabels = themes?.map((theme) => theme.name) || [];
     return createOptinalSelect(themesIds, themesLabels);

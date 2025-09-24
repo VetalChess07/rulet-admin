@@ -17,22 +17,21 @@ const addQueryParams = (url: string, params: Record<string, string>) => {
     : `${url}?${searchParams.toString()}`;
 };
 
-const rawBaseQuery = fetchBaseQuery({
-  baseUrl: import.meta.env.VITE_API_URL || 'https://your-backend.com/api',
-  credentials: 'include',
-  prepareHeaders: (headers) => {
-    const token = getTokenFromLocalStorage();
-    if (token) headers.set('Authorization', `Bearer ${token}`);
-    headers.set('Content-Type', 'application/json');
-    return headers;
-  },
-});
-
 // Конфиг для дефолтных query-параметров
 const defaultQueryParams: Record<string, string> = {};
 if (userInfo) {
   defaultQueryParams['user_info'] = JSON.stringify(userInfo);
 }
+
+const rawBaseQuery = fetchBaseQuery({
+  baseUrl: import.meta.env.VITE_API_URL || 'https://your-backend.com/api',
+  credentials: 'include',
+  prepareHeaders: (headers, { getState }) => {
+    const token = getTokenFromLocalStorage();
+    if (token) headers.set('Authorization', `Bearer ${token}`);
+    return headers;
+  },
+});
 
 export const baseQuery = async (
   args: string | FetchArgs,
@@ -43,6 +42,14 @@ export const baseQuery = async (
     args = addQueryParams(args, defaultQueryParams);
   } else if (args.url) {
     args.url = addQueryParams(args.url, defaultQueryParams);
+
+    // ❗️ Если body не FormData, ставим Content-Type JSON
+    if (args.body && !(args.body instanceof FormData)) {
+      args.headers = {
+        ...(args.headers || {}),
+        'Content-Type': 'application/json',
+      };
+    }
   }
 
   return rawBaseQuery(args, api, extraOptions);

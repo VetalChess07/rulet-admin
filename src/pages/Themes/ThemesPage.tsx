@@ -1,5 +1,6 @@
 import { useGetAllThemeQuery } from '@/entities/themes';
 import { getAllThemes } from '@/entities/themes/model/selectors/theme.selectors';
+import { CreateThemeButton } from '@/entities/themes/ui/CreateThemeButton/CreateThemeButton';
 import { ThemesList } from '@/entities/themes/ui/ThemesList/ThemesList';
 import { getErrorMessage } from '@/shared/lib/getErrorMessage';
 import { useAppSelector } from '@/shared/lib/hooks/redux/useAppSelector';
@@ -16,9 +17,10 @@ const ThemesPage = () => {
     );
 
   return (
-    <>
+    <div>
       <ThemesList isLoading={isLoading} themes={themes} refetch={refetch} />
-    </>
+      <CreateThemeButton refetch={refetch} />
+    </div>
   );
 };
 

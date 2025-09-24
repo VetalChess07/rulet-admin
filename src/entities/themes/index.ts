@@ -6,3 +6,4 @@ export type {
 } from './model/types/theme.types';
 
 export { themeApi, useGetAllThemeQuery } from './model/api/theme.api';
+export { SelectTheme } from './ui/SelectTheme/SelectTheme';

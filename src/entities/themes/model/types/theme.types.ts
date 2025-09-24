@@ -9,6 +9,7 @@ export interface Theme {
   name: string;
   logo: string | null;
   banner: string | null;
+  bannerMobile: string | null;
   title: string | null;
   description: string | null;
   start: boolean | null;
@@ -17,6 +18,7 @@ export interface Theme {
   token_tg_bot: string | null;
   deleted?: boolean;
   type_themes: TypeThemeGame;
+  url_game: string;
 }
 
 export interface ThemeState {

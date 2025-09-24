@@ -1,5 +1,7 @@
 import { backdropClasses, colors, Components, Theme } from '@mui/material';
 
+import CheckboxIcon from '@shared/assets/icons/checked.svg?react';
+
 export const componentsConfig: Components<Omit<Theme, 'components'>> = {
   MuiButton: {
     styleOverrides: {
@@ -67,7 +69,7 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
         fontWeight: 400,
 
         borderRadius: '5px',
-        color: 'var(red)',
+        color: 'var(--light)',
         border: 'none',
         background:
           'linear-gradient(to bottom, rgba(90, 161, 239, 1), rgba(72, 117, 185, 1))',
@@ -88,7 +90,7 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
         padding: '4px 8px',
       },
       icon: {
-        color: 'var(--primary-color)',
+        color: 'var(--light)',
       },
     },
   },
@@ -165,6 +167,81 @@ export const componentsConfig: Components<Omit<Theme, 'components'>> = {
           },
         },
       },
+    },
+  },
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        transition: 'all .5s',
+        fontWeight: 400,
+        outline: 'none',
+        border: 'none',
+
+        '& .MuiOutlinedInput-root': {
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'var(--danger-color)',
+          },
+
+          '&.Mui-disabled': {
+            backgroundColor: 'var(--color-text-footer)',
+            '& .MuiOutlinedInput-notchedOutline': {
+              backgroundColor: 'var(--color-text-footer)',
+              borderColor: 'var(--color-text-footer)',
+            },
+            '& .MuiOutlinedInput-input': {
+              color: 'var(--border-color)',
+              WebkitTextFillColor: 'var(--border-color)',
+              '&::placeholder': {
+                color: 'var(--border-color)',
+              },
+            },
+          },
+        },
+
+        '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline':
+          {
+            borderColor: 'var(--primary-color)',
+          },
+        '& .MuiOutlinedInput-input': {
+          padding: '16px',
+          backgroundColor: 'var( --accent-color)',
+          borderRadius: '5px',
+          color: 'var(--light)',
+          '&::placeholder': {
+            color: 'var(--light)',
+            fontFamily: 'Inter-Regular',
+
+            fontWeight: 400,
+            lineHeight: '100%',
+            opacity: '1',
+          },
+          '&:focus': {
+            border: 'none',
+            outline: 'none',
+          },
+        },
+      },
+    },
+  },
+  MuiCheckbox: {
+    styleOverrides: {
+      root: {
+        width: '17px',
+        height: '17px',
+        padding: '4px',
+        borderRadius: '4.72px',
+        outline: 'none',
+        border: '1px solid var(--accent-color)',
+        margin: '0',
+        '&.Mui-checked': {
+          border: '1px solid var(--accent-color)',
+          background: 'var(--accent-color)',
+        },
+      },
+    },
+    defaultProps: {
+      checkedIcon: <CheckboxIcon />,
+      icon: <div />,
     },
   },
 };

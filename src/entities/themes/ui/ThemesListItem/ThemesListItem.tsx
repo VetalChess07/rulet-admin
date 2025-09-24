@@ -15,8 +15,10 @@ import { useSearchParams } from 'react-router-dom';
 import { setQueryParams } from '@/shared/lib/setQueryParams';
 import { ModalSetGameStart } from '../ModalSetGameStart/ModalSetGameStart';
 import { ModalApproveDeleteTheme } from '../ModalApproveDeleteTheme/ModalApproveDeleteTheme';
+import { ThemeMarkerIsOnline } from '../ThemeMarkerIsOnline/ThemeMarkerIsOnline';
 
 import cls from './ThemesListItem.module.scss';
+import { UpdateThemeModal } from '../UpdateThemeModal/UpdateThemeModal';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
@@ -37,9 +39,10 @@ const ThemesListItem = (props: ThemesListItemProps) => {
   const currentThemeId = useAppSelector(getCurrentThemeId);
 
   const [openDelete, setOpenDelete] = useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
 
   const themeActions = [
-    { label: 'Редактировать', onClick: () => console.log('Редактировать') },
+    { label: 'Редактировать', onClick: () => setOpenUpdate(true) },
     {
       label: 'Удалить',
       onClick: () => setOpenDelete(true),
@@ -118,9 +121,11 @@ const ThemesListItem = (props: ThemesListItemProps) => {
                 Статус игры:
               </Typography>
               <ModalSetGameStart
-                isStart={theme.start ?? false}
+                refetch={refetch}
+                isStart={!!theme.start}
                 themeId={theme.id}
               />
+              {theme.start ? 'true' : 'false'}
             </div>
 
             <Typography
@@ -135,6 +140,7 @@ const ThemesListItem = (props: ThemesListItemProps) => {
         </div>
 
         <div className={cls.dateInner}>
+          <ThemeMarkerIsOnline isOnline={theme.start ?? false} />
           <Typography
             className={cls.dateInnerText}
             variant="body1"
@@ -164,6 +170,12 @@ const ThemesListItem = (props: ThemesListItemProps) => {
         themeId={theme.id}
         themeName={theme.name}
         refetch={refetch}
+      />
+      <UpdateThemeModal
+        open={openUpdate}
+        setOpen={setOpenUpdate}
+        refetch={refetch}
+        theme={theme}
       />
     </div>
   );

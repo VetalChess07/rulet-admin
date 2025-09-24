@@ -31,6 +31,23 @@ interface ModalProps extends ModalPropsMUI {
   headerTitleVariant?: TypographyVariant;
 }
 
+const modalContentSx: SxProps<Theme> = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '100%',
+  maxWidth: '600px',
+  maxHeight: '90vh', // ограничение по высоте окна
+  backgroundColor: 'var(--primary-bg)',
+  boxShadow: '0 4px 20px rgba(100, 61, 61, 0.25)',
+  padding: '16px',
+  borderRadius: '8px',
+  display: 'flex',
+  flexDirection: 'column',
+  overflowY: 'auto',
+};
+
 export const Modal = (props: ModalProps) => {
   const {
     open,
@@ -60,7 +77,7 @@ export const Modal = (props: ModalProps) => {
       {...other}
     >
       <Fade in={open}>
-        <Box sx={sxContent} className={cls.modalContent}>
+        <Box sx={{ ...modalContentSx, ...(sxContent ?? {}) }}>
           {header ? (
             <>{header}</>
           ) : (

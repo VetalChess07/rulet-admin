@@ -13,6 +13,7 @@ import { SelectVariant } from './const';
 
 import { selectTheme } from './selectTheme';
 import { ReactNode } from 'react';
+import { OptionsSelect } from '@/shared/types/ui';
 
 export interface SelectOption {
   value: string | number;
@@ -22,7 +23,7 @@ export interface SelectOption {
 type SelectProps = Omit<SelectPropsMUI, 'onChange'> & {
   label?: string;
   value: string | number;
-  options: SelectOption[];
+  options: OptionsSelect[];
   fullWidth?: boolean;
   id?: string;
   onChange: (event: SelectChangeEvent<string | number>) => void;
@@ -32,6 +33,7 @@ type SelectProps = Omit<SelectPropsMUI, 'onChange'> & {
   sxFormControl?: SxProps<Theme> | undefined;
   variantSelect?: SelectVariant;
   renderValue?: (value: string | number) => ReactNode;
+  sx?: SxProps<Theme>;
 };
 
 export const Select = (props: SelectProps) => {
@@ -49,7 +51,13 @@ export const Select = (props: SelectProps) => {
     variantSelect = 'default',
     renderValue,
     variant,
+    sx,
   } = props;
+
+  const selectStyles = {
+    ...(sx ?? {}),
+    ...selectTheme({ variant: variantSelect }),
+  };
 
   return (
     <Box className="w-full" sx={sxInner}>
@@ -67,7 +75,7 @@ export const Select = (props: SelectProps) => {
           </Typography>
         )}
         <SelectMUI
-          sx={{ ...selectTheme({ variant: variantSelect }) }}
+          sx={selectStyles}
           className="w-full"
           fullWidth={fullWidth}
           labelId={`${id}-label`}
