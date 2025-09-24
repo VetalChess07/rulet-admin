@@ -1,9 +1,9 @@
-import { DailyBonuses } from '@/entities/dailyBonuses';
+import { Dailys } from '@/entities/dailys';
 
 const DailyBonusesPage = () => {
   return (
     <section>
-      <DailyBonuses />
+      <Dailys />
     </section>
   );
 };

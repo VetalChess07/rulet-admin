@@ -6,6 +6,7 @@ import {
 
 import { themeReducer, themeApi } from '@/entities/themes';
 import { prizeApi } from '@/entities/prizes';
+import { dailyApi } from '@/entities/dailys';
 
 import type { StateSchema } from '../types/stateSchema';
 
@@ -17,6 +18,7 @@ export function createReduxStore(initialState?: StateSchema) {
   const apiReducers = {
     [themeApi.reducerPath]: themeApi.reducer,
     [prizeApi.reducerPath]: prizeApi.reducer,
+    [dailyApi.reducerPath]: dailyApi.reducer,
   };
 
   const combinedReducers = combineReducers({
@@ -33,7 +35,7 @@ export function createReduxStore(initialState?: StateSchema) {
           ignoredActions: ['listener/setSub'],
           ignoredPaths: ['listener'],
         },
-      }).concat(themeApi.middleware, prizeApi.middleware),
+      }).concat(themeApi.middleware, prizeApi.middleware, dailyApi.middleware),
   });
 
   return store;
