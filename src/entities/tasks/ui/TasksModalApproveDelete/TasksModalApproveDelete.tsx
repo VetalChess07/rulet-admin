@@ -5,32 +5,32 @@ import { Dispatch, SetStateAction } from 'react';
 import { useSnackbar } from '@/shared/ui/Snackbar/Snackbar';
 
 import { ErrorAlert } from '@/widgets/ErrorAlert/ErrorAlert';
-import { useDeleteDailyMutation } from '../../model/api/daily.api';
+import { useDeleteTaskMutation } from '../../model/api/task.api';
 
 import { Typography } from '@mui/material';
 
-interface DailysModalApproveDeleteProps {
+interface TasksModalApproveDeleteProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   refetch: () => void;
   deleteId: number;
 }
 
-const DailysModalApproveDelete = (props: DailysModalApproveDeleteProps) => {
+const TasksModalApproveDelete = (props: TasksModalApproveDeleteProps) => {
   const { open, setOpen, refetch, deleteId } = props;
 
-  const [onDelete, { isLoading, error }] = useDeleteDailyMutation();
+  const [onDelete, { isLoading, error }] = useDeleteTaskMutation();
 
   const { showSnackbar } = useSnackbar();
 
   const handleSubmitForm = async () => {
     try {
-      await onDelete({ dailyId: deleteId }).unwrap();
+      await onDelete({ questId: deleteId }).unwrap();
       refetch();
       setOpen(false);
     } catch (error) {
       console.error(error);
-      showSnackbar('Ошибка при создании приза', 'error');
+      showSnackbar('Ошибка при удаление задания', 'error');
     }
   };
 
@@ -40,7 +40,7 @@ const DailysModalApproveDelete = (props: DailysModalApproveDeleteProps) => {
       onClose={() => setOpen(false)}
       onConfirm={() => handleSubmitForm()}
       confirmTextButton="Подтвердить"
-      headerTitle={`Удалить ежедненове задание с id ${deleteId}`}
+      headerTitle={`Удалить приз с id ${deleteId}`}
       disabledFooter={isLoading}
       sxContent={{
         padding: '24px',
@@ -57,4 +57,4 @@ const DailysModalApproveDelete = (props: DailysModalApproveDeleteProps) => {
   );
 };
 
-export { DailysModalApproveDelete };
+export { TasksModalApproveDelete };

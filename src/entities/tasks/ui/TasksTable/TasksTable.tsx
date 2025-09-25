@@ -32,20 +32,25 @@ export const TasksTable: React.FC<TasksTableProps> = ({
       <Table aria-label="tasks table">
         <TableHead>
           <TableRow>
+            <TableCell>id</TableCell>
+            <TableCell>themeId</TableCell>
             <TableCell>Название</TableCell>
-            <TableCell>Картинка</TableCell>
             <TableCell>Описание</TableCell>
+            <TableCell>Картинка</TableCell>
             <TableCell>Попытки</TableCell>
             <TableCell>Тип</TableCell>
             <TableCell>API</TableCell>
-            <TableCell>Параметры</TableCell>
+            <TableCell>Сылка</TableCell>
             <TableCell align="right">Действия</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {tasks.map((task) => (
             <TableRow key={task.id}>
-              <TableCell>{task.name}</TableCell>
+              <TableCell>{task.id ?? '-'}</TableCell>
+              <TableCell>{task.themeId ?? '-'}</TableCell>
+              <TableCell>{task.name ?? '-'}</TableCell>
+              <TableCell>{task.description ?? '-'}</TableCell>
               <TableCell>
                 <img
                   src={`${imgApi}/${task.picture}`}
@@ -53,11 +58,10 @@ export const TasksTable: React.FC<TasksTableProps> = ({
                   width={60}
                 />
               </TableCell>
-              <TableCell>{task.description}</TableCell>
-              <TableCell>{task.attempt}</TableCell>
-              <TableCell>{task.type}</TableCell>
-              <TableCell>{task.api}</TableCell>
-              <TableCell>{task.params}</TableCell>
+              <TableCell>{task.attempt ?? '-'}</TableCell>
+              <TableCell>{task.type ?? '-'}</TableCell>
+              <TableCell>{task.api_url ?? '-'}</TableCell>
+              <TableCell>{task.link ?? '-'}</TableCell>
               <TableCell align="right">
                 <IconButton color="primary" onClick={() => onEdit?.(task)}>
                   <EditIcon />

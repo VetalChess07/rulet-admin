@@ -1,18 +1,15 @@
-export enum TaskStatus {
-  RECEIVED = 'RECEIVED',
-  NOTCOMPLETED = 'NOTCOMPLETED',
-}
+export type TaskType = 'API' | 'PARTNER';
+
 export interface Task {
   id: number;
-  picture: string;
+  picture?: string;
   name: string;
-  description: string;
+  description: string | null;
   attempt: number;
-  api: string;
-  type: 'API' | 'UI' | string; // если возможны и другие типы, добавь или замени на просто `string`
-  params: string;
-  createdAt: string;
-  updatedAt: string;
+  api_url: string;
+  type: TaskType;
+  link: string;
+  themeId: number | null;
 }
 
 export interface TaskNoAuth {

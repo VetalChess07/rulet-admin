@@ -48,7 +48,7 @@ const PrizeModalApproveDelete = (props: PrizeModalApproveDeleteProps) => {
       onClose={() => setOpen(false)}
       onConfirm={() => handleSubmitForm()}
       confirmTextButton="Подтвердить"
-      headerTitle={`Изменить приз с id ${deleteId}`}
+      headerTitle={`Удалить приз с id ${deleteId}`}
       disabledFooter={isLoading}
       sxContent={{
         padding: '24px',
