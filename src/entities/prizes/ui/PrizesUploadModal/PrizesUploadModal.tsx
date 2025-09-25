@@ -29,9 +29,12 @@ export const PrizesUploadModal: React.FC<PrizesUploadModalProps> = ({
 
   const handleSubmit = async () => {
     const array = codes
-      .split(',')
+      .split(/[\n, ]+/)
       .map((code) => code.trim())
       .filter(Boolean);
+
+    console.log(codes);
+    console.log(array);
 
     if (array.length === 0) {
       alert('Введите хотя бы один код.');

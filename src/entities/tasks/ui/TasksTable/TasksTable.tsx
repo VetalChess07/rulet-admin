@@ -13,6 +13,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Task } from '../../model/types/tasks';
+import { Theme } from '@/entities/themes';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
@@ -20,12 +21,14 @@ interface TasksTableProps {
   tasks: Task[];
   onEdit?: (task: Task) => void;
   onDelete?: (id: number) => void;
+  theme: Theme | null;
 }
 
 export const TasksTable: React.FC<TasksTableProps> = ({
   tasks,
   onEdit,
   onDelete,
+  theme,
 }) => {
   return (
     <TableContainer component={Paper}>
@@ -33,7 +36,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
         <TableHead>
           <TableRow>
             <TableCell>id</TableCell>
-            <TableCell>themeId</TableCell>
+            <TableCell>Тема</TableCell>
             <TableCell>Название</TableCell>
             <TableCell>Описание</TableCell>
             <TableCell>Картинка</TableCell>
@@ -48,7 +51,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
           {tasks.map((task) => (
             <TableRow key={task.id}>
               <TableCell>{task.id ?? '-'}</TableCell>
-              <TableCell>{task.themeId ?? '-'}</TableCell>
+              <TableCell>{theme?.name ?? '-'}</TableCell>
               <TableCell>{task.name ?? '-'}</TableCell>
               <TableCell>{task.description ?? '-'}</TableCell>
               <TableCell>

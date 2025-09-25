@@ -55,6 +55,9 @@ const TasksModalCreate = (props: TasksModalCreateProps) => {
       if (formData.type === 'PARTNER') {
         payload.append('api_url', 'quests-users/check_partner_quest');
       }
+      if (formData.type === 'FAKE') {
+        payload.append('api_url', 'quests-users/check_quest');
+      }
 
       if (userInfo) {
         payload.append('user_info', JSON.stringify(userInfo));

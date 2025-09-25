@@ -14,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Daily } from '../../model/types/dailys';
 import dayjs from 'dayjs';
+import { Theme } from '@/entities/themes';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
@@ -21,12 +22,14 @@ interface DailysTableProps {
   prizes: Daily[];
   onDelete?: (id: number) => void;
   onEdit?: (prize: Daily) => void;
+  theme: Theme | null;
 }
 
 export const DailysTable: React.FC<DailysTableProps> = ({
   prizes,
   onEdit,
   onDelete,
+  theme,
 }) => {
   return (
     <TableContainer component={Paper}>
@@ -34,7 +37,7 @@ export const DailysTable: React.FC<DailysTableProps> = ({
         <TableHead>
           <TableRow>
             <TableCell>id</TableCell>
-            <TableCell>themeId</TableCell>
+            <TableCell>Тема</TableCell>
             <TableCell>Картинка</TableCell>
             <TableCell>Дата провередения</TableCell>
             <TableCell align="right">Действия</TableCell>
@@ -44,7 +47,7 @@ export const DailysTable: React.FC<DailysTableProps> = ({
           {prizes.map((prize) => (
             <TableRow key={prize.id}>
               <TableCell>{prize.id}</TableCell>
-              <TableCell>{prize.themeId}</TableCell>
+              <TableCell>{theme?.name}</TableCell>
               <TableCell>
                 <img
                   src={`${imgApi}/${prize.picture}`}

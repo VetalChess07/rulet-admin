@@ -15,6 +15,7 @@ import { ImBoxAdd } from 'react-icons/im';
 
 import { Prize } from '../../model/types/prizes';
 import dayjs from 'dayjs';
+import { Theme } from '@/entities/themes';
 
 const imgApi = import.meta.env.VITE_API_IMAGE_URL;
 
@@ -23,6 +24,7 @@ interface PrizesTableProps {
   onDelete?: (id: number) => void;
   onEdit?: (prize: Prize) => void;
   onAddCode?: (id: number) => void;
+  theme: Theme | null;
 }
 
 export const PrizesTable: React.FC<PrizesTableProps> = ({
@@ -30,6 +32,7 @@ export const PrizesTable: React.FC<PrizesTableProps> = ({
   onEdit,
   onDelete,
   onAddCode,
+  theme,
 }) => {
   return (
     <TableContainer component={Paper}>
@@ -37,7 +40,7 @@ export const PrizesTable: React.FC<PrizesTableProps> = ({
         <TableHead>
           <TableRow>
             <TableCell>id</TableCell>
-            <TableCell>themeId</TableCell>
+            <TableCell>Тема</TableCell>
             <TableCell>Название</TableCell>
             <TableCell>Картинка</TableCell>
             <TableCell>Описание</TableCell>
@@ -52,7 +55,7 @@ export const PrizesTable: React.FC<PrizesTableProps> = ({
           {prizes.map((prize) => (
             <TableRow key={prize.id}>
               <TableCell>{prize.id}</TableCell>
-              <TableCell>{prize.themeId}</TableCell>
+              <TableCell>{theme?.name}</TableCell>
               <TableCell>{prize.name}</TableCell>
               <TableCell>
                 <img

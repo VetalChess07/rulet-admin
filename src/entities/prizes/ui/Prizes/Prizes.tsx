@@ -75,6 +75,7 @@ export const Prizes = () => {
       <PrizeHeader handleAddPrize={handleAddPrize} />
       {data?.data && (
         <PrizesTable
+          theme={theme}
           prizes={data.data}
           onEdit={handlOpenEditModal}
           onDelete={handleDelete}

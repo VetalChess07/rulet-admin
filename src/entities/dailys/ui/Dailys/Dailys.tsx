@@ -66,6 +66,7 @@ export const Dailys = () => {
       <DailysHeader handleAddPrize={handleAddPrize} />
       {data?.data && (
         <DailysTable
+          theme={theme}
           prizes={data.data}
           onEdit={handlOpenEditModal}
           onDelete={handleDelete}

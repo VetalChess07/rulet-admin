@@ -1,4 +1,4 @@
-export type TaskType = 'API' | 'PARTNER';
+export type TaskType = 'API' | 'PARTNER' | 'FAKE';
 
 export interface Task {
   id: number;

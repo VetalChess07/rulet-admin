@@ -7,11 +7,11 @@ import { FaHome } from 'react-icons/fa';
 import { SiGoogledocs } from 'react-icons/si';
 
 export const navRoutes: INavRoute[] = [
-  {
-    label: 'Главная',
-    path: '/',
-    Icon: <FaHome />,
-  },
+  // {
+  //   label: 'Главная',
+  //   path: '/',
+  //   Icon: <FaHome />,
+  // },
   {
     label: 'Темы',
     path: '/themes',
@@ -33,9 +33,9 @@ export const navRoutes: INavRoute[] = [
     path: '/tasks',
     Icon: <FaTasks />,
   },
-  {
-    label: 'Документы',
-    path: '/docs',
-    Icon: <SiGoogledocs />,
-  },
+  // {
+  //   label: 'Документы',
+  //   path: '/docs',
+  //   Icon: <SiGoogledocs />,
+  // },
 ];

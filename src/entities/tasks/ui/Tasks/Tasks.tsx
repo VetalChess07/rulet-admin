@@ -61,6 +61,7 @@ export const Tasks: React.FC = () => {
           tasks={data.data}
           onEdit={handlOpenEditModal}
           onDelete={handleDelete}
+          theme={theme}
         />
       )}
 
