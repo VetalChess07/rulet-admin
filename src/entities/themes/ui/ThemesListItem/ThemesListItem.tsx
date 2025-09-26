@@ -125,7 +125,6 @@ const ThemesListItem = (props: ThemesListItemProps) => {
                 isStart={!!theme.start}
                 themeId={theme.id}
               />
-              {theme.start ? 'true' : 'false'}
             </div>
 
             <Typography
