@@ -8,8 +8,9 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-
-import { uploadPrizesValues } from '@/features/prizes/model/uploadPrizesValues/uploadPrizesValues';
+import { useCreatePrizeValuesMutation } from '../../model/api/prize.api';
+import { Modal } from '@/shared/ui/Modal/Modal';
+import { Input } from '@/shared/ui/Input/Input';
 
 interface PrizesUploadModalProps {
   open: boolean;
@@ -22,71 +23,69 @@ export const PrizesUploadModal: React.FC<PrizesUploadModalProps> = ({
   onClose,
   prizeId,
 }) => {
-  const [filePrizes, setFilePrizes] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const text = event.target?.result as string;
-      const lines = text
-        .split('\n')
-        .map((line) => line.trim())
-        .filter(Boolean);
-      setFilePrizes(lines);
-    };
-    reader.readAsText(file);
-  };
+  const [codes, setCodes] = useState('');
+  const [uploadPrizesValues, { isLoading, error, isSuccess }] =
+    useCreatePrizeValuesMutation();
 
   const handleSubmit = async () => {
-    setError(null);
+    const array = codes
+      .split(/[\n, ]+/)
+      .map((code) => code.trim())
+      .filter(Boolean);
 
-    const res = await uploadPrizesValues({
-      array: filePrizes,
-      prizeId,
-      setIsLoading,
-      setError,
-    });
+    console.log(codes);
+    console.log(array);
 
-    if (res) {
+    if (array.length === 0) {
+      alert('Введите хотя бы один код.');
+      return;
+    }
+
+    try {
+      await uploadPrizesValues({ prizeId, values: codes }).unwrap();
       alert('Призы успешно загружены');
-
-      setFilePrizes([]);
+      setCodes('');
       onClose();
+    } catch (e) {
+      console.error('Ошибка при загрузке призов:', e);
     }
   };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Загрузка призов</DialogTitle>
-      <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Button variant="outlined" component="label" disabled={isLoading}>
-          Загрузить файл с призами (.txt)
-          <input type="file" hidden accept=".txt" onChange={handleFileChange} />
-        </Button>
-        {filePrizes.length > 0 && (
-          <Typography variant="body2" color="textSecondary">
-            Загружено из файла: {filePrizes.length} призов
-          </Typography>
-        )}
+    <Modal
+      open={open}
+      onClose={onClose}
+      onConfirm={handleSubmit}
+      confirmTextButton="Отправить"
+      headerTitle="Загрузка призов"
+      disabledFooter={isLoading}
+      sxContent={{ padding: '24px', maxWidth: '600px', width: '100%' }}
+      sxHeaderTitle={{ fontSize: '1.2rem' }}
+    >
+      <>
+        <Input
+          label="Коды призов"
+          multiline
+          rows={6}
+          placeholder="Введите коды через запятую, например: ABC123,DEF456,GHI789"
+          value={codes}
+          onChange={(e) => setCodes(e.target.value)}
+          disabled={isLoading}
+          fullWidth
+        />
+
         {error && (
           <Typography variant="body2" color="error">
-            {error}
+            {(error as any)?.data?.message || 'Произошла ошибка при загрузке'}
           </Typography>
         )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose} disabled={isLoading}>
-          Отмена
-        </Button>
-        <Button variant="contained" onClick={handleSubmit} disabled={isLoading}>
-          {isLoading ? 'Загрузка...' : 'Отправить'}
-        </Button>
-      </DialogActions>
-    </Dialog>
+
+        {isSuccess && (
+          <Typography variant="body2" color="success.main">
+            Призы успешно загружены!
+          </Typography>
+        )}
+      </>
+    </Modal>
   );
 };

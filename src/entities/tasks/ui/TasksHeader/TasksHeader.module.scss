@@ -1,0 +1,11 @@
+.TasksHeader {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  margin-bottom: 24px;
+  .item {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+  }
+}

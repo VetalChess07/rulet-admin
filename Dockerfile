@@ -13,7 +13,6 @@ RUN npm install
 # Копируем остальные файлы
 COPY . .
 
-# Аргументы для переменных среды (опционально, если нужно передавать при сборке)
 ARG VITE_HOST
 ARG VITE_TG_BOT_NAME
 ARG VITE_DATA_AUTH_URL
@@ -29,8 +28,6 @@ ENV VITE_DOMEN=$VITE_DOMEN
 ENV VITE_API_URL=$VITE_API_URL
 ENV VITE_API_IMAGE_URL=$VITE_API_IMAGE_URL
 
-# Порт Vite development server
 EXPOSE 5174
 
-# Запуск приложения
 CMD ["npm", "run", "dev"]

@@ -17,14 +17,11 @@ export const getAllEvents = async ({
   try {
     const userInfo = localStorage.getItem(TG_USER);
 
-    const res = await api.get<DailyBonuses[]>(
-      `api_field_of_luck/events/get_all`,
-      {
-        params: {
-          user_info: userInfo,
-        },
+    const res = await api.get<DailyBonuses[]>(`events/get_all`, {
+      params: {
+        user_info: userInfo,
       },
-    );
+    });
     setIsLoading(true);
     setError(null);
     setAllEvents(res.data);

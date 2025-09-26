@@ -1,0 +1,9 @@
+.ThemeMarkerIsOnline {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  background-color: var(--danger-color);
+}
+.isOnline {
+  background-color: var(--success-color);
+}

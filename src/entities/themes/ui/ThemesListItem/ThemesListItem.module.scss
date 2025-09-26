@@ -1,0 +1,118 @@
+.ThemesListItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  border: 2px solid var(--accent-color);
+  padding: 24px;
+  border-radius: 8px;
+  position: relative;
+  transition: all 0.5s;
+  overflow: hidden;
+  .background {
+    left: 0;
+    top: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: var(--banner-bg-bg);
+    opacity: 0.9;
+    overflow: hidden;
+    z-index: -1;
+  }
+  .backgroundImg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    z-index: -1;
+  }
+
+  &:hover {
+    -webkit-box-shadow: -1.5px 1px 15px 7.5px var(--accent-color);
+    -moz-box-shadow: -1.5px 1px 15px 7.5px var(--accent-color);
+    box-shadow: -1.5px 1px 15px 7.5px var(--accent-color);
+  }
+  .header {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    .headerContent {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      .title {
+        font-size: 1.6rem;
+      }
+    }
+  }
+  .body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .footer {
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    .footerContent {
+      width: auto;
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      .footerItem {
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        .footerItemHeader {
+          display: flex;
+          gap: 12px;
+          align-items: center;
+        }
+      }
+    }
+  }
+  .moreBtn {
+    background: var(--accent-color);
+  }
+  .dateInner {
+    width: auto;
+    display: flex;
+    gap: 8px;
+    background: var(--light);
+    padding: 8px 12px;
+    border-radius: 16px;
+
+    .dateInnerText {
+      color: var(--primary-bg);
+      font-size: 1.2rem;
+      font-weight: bolder;
+      &:last-child {
+        color: var(--accent-color);
+      }
+    }
+  }
+}
+.activeTheme {
+  // background: var(--accent-color);
+  .moreBtn {
+    background: var(--light);
+  }
+  -webkit-box-shadow: -1.5px 1px 15px 7.5px var(--accent-color);
+  -moz-box-shadow: -1.5px 1px 15px 7.5px var(--accent-color);
+  box-shadow: -1.5px 1px 15px 7.5px var(--accent-color);
+}

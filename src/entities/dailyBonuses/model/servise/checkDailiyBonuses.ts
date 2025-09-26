@@ -22,7 +22,7 @@ export const checkDailiyBonuses = async ({
     const userInfoStr = localStorage.getItem(TG_USER);
     const userInfo = userInfoStr ? JSON.parse(userInfoStr) : null;
 
-    const res = await api.post('api_field_of_luck/events_users/check', {
+    const res = await api.post('events_users/check', {
       user_info: userInfoStr,
       eventId: id,
     });
